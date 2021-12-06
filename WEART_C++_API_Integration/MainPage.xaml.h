@@ -6,6 +6,9 @@
 #pragma once
 
 #include "MainPage.g.h"
+#include <WEART_SDK/WeArtClient.h>
+#include <WEART_SDK/WeArtHapticObject.h>
+#include "TouchEffect.h"
 
 namespace WEART_C___API_Integration
 {
@@ -16,6 +19,16 @@ namespace WEART_C___API_Integration
 	{
 	public:
 		MainPage();
+	private:
+		void ButtonStartClient_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+		void ButtonStopClient_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+		void ButtonEffectSample1_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+		void ButtonEffectSample2_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+		void ButtonEffectSample3_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+		void ButtonRemoveEffect_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 
+		WeArtClient* weArtClient;
+		WeArtHapticObject* hapticObject;
+		TouchEffect* touchEffect;
 	};
 }

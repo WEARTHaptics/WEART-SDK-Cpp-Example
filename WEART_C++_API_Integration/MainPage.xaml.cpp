@@ -5,7 +5,6 @@
 
 #include "pch.h"
 #include "MainPage.xaml.h"
-#include "WeArtClient.h"
 
 using namespace WEART_C___API_Integration;
 
@@ -25,8 +24,103 @@ using namespace Windows::UI::Xaml::Navigation;
 MainPage::MainPage()
 {
 	InitializeComponent();
-	WeArtClient* weArtClient = new WeArtClient();
+	
+	weArtClient = new WeArtClient("192.168.1.109", "13031");
+
+	hapticObject = new WeArtHapticObject(weArtClient);
+	hapticObject->handSideFlag = HandSide::Right;
+	hapticObject->actuationPointFlag = ActuationPoint::Index;
+
+	WeArtTemperature temperature = WeArtTemperature();
+	WeArtForce force = WeArtForce();
+	WeArtTexture texrure = WeArtTexture();
+
+	touchEffect = new TouchEffect(temperature, force, texrure);
+
+
+	hapticObject->AddEffect(touchEffect);
+}
+
+
+
+void WEART_C___API_Integration::MainPage::ButtonStartClient_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
 	weArtClient->Start();
+}
+
+
+void WEART_C___API_Integration::MainPage::ButtonStopClient_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
 	weArtClient->Stop();
-	weArtClient->Close();
+}
+
+
+void WEART_C___API_Integration::MainPage::ButtonEffectSample1_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+	WeArtTemperature temperature = WeArtTemperature();
+	temperature.active = true;
+	temperature.value = 0.2f;
+
+	WeArtForce force = WeArtForce();
+	force.active = true;
+	force.value = 0.4f;
+
+	WeArtTexture texture = WeArtTexture();
+
+	touchEffect->Set(temperature, force, texture);
+
+	if (hapticObject->activeEffects.size() <= 0)
+		hapticObject->AddEffect(touchEffect);
+	else 
+		hapticObject->UpdateEffects();
+}
+
+
+void WEART_C___API_Integration::MainPage::ButtonEffectSample2_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+	WeArtTemperature temperature = WeArtTemperature();
+	temperature.active = true;
+	temperature.value = 0.4f;
+
+	WeArtForce force = WeArtForce();
+	force.active = true;
+	force.value = 0.6f;
+
+	WeArtTexture texture = WeArtTexture();
+
+	touchEffect->Set(temperature, force, texture);
+
+	if (hapticObject->activeEffects.size() <= 0)
+		hapticObject->AddEffect(touchEffect);
+	else
+		hapticObject->UpdateEffects();
+}
+
+
+void WEART_C___API_Integration::MainPage::ButtonEffectSample3_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+	WeArtTemperature temperature = WeArtTemperature();
+	temperature.active = true;
+	temperature.value = 0.8f;
+
+	WeArtForce force = WeArtForce();
+	force.active = true;
+	force.value = 0.9f;
+
+	WeArtTexture texture = WeArtTexture();
+	texture.active = true;
+	texture.textureType = TextureType::TextileMeshMedium;
+
+	touchEffect->Set(temperature, force, texture);
+
+	if (hapticObject->activeEffects.size() <= 0)
+		hapticObject->AddEffect(touchEffect);
+	else
+		hapticObject->UpdateEffects();
+}
+
+
+void WEART_C___API_Integration::MainPage::ButtonRemoveEffect_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+	hapticObject->RemoveEffect(touchEffect);
 }

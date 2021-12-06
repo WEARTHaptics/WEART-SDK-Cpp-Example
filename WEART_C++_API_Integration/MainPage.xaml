@@ -9,6 +9,11 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-
+        <Button x:Name="ButtonStartClient" Content="Start Client" Margin="122,68,0,0" VerticalAlignment="Top" Click="ButtonStartClient_Click"/>
+        <Button x:Name="ButtonStopClient" Content="Stop Client" Margin="290,68,0,0" VerticalAlignment="Top" Click="ButtonStopClient_Click"/>
+        <Button x:Name="ButtonEffectSample1" Content="Add effect sample 1" Margin="122,175,0,0" VerticalAlignment="Top" Click="ButtonEffectSample1_Click"/>
+        <Button x:Name="ButtonEffectSample2" Content="Add effect sample 2" Margin="315,175,0,0" VerticalAlignment="Top" Click="ButtonEffectSample2_Click"/>
+        <Button x:Name="ButtonEffectSample3" Content="Add effect sample 3" Margin="515,175,0,0" VerticalAlignment="Top" Click="ButtonEffectSample3_Click"/>
+        <Button x:Name="ButtonRemoveEffect" Content="Remove Effect" Margin="716,175,0,0" VerticalAlignment="Top" Click="ButtonRemoveEffect_Click"/>
     </Grid>
 </Page>

@@ -23,6 +23,7 @@
     <ClCompile Include="WeArtClient.cpp">
       <Filter>WEART_SDK</Filter>
     </ClCompile>
+    <ClCompile Include="TouchEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -56,6 +57,7 @@
     <ClInclude Include="WeArtClient.h">
       <Filter>WEART_SDK</Filter>
     </ClInclude>
+    <ClInclude Include="TouchEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png">
