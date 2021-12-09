@@ -18,6 +18,8 @@ using namespace Windows::UI::Xaml::Data;
 using namespace Windows::UI::Xaml::Input;
 using namespace Windows::UI::Xaml::Media;
 using namespace Windows::UI::Xaml::Navigation;
+using namespace Windows::System::Threading;
+using namespace Windows::UI::Core;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -37,8 +39,26 @@ MainPage::MainPage()
 
 	touchEffect = new TouchEffect(temperature, force, texrure);
 
-
 	hapticObject->AddEffect(touchEffect);
+
+	indexThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Right, ActuationPoint::Index);
+	weArtClient->AddThimbleTracking(indexThimbleTracking);
+
+	TimeSpan period;
+	period.Duration = 1 * 10000000; // 10,000,000 ticks per second
+	ThreadPoolTimer::CreatePeriodicTimer(ref new TimerElapsedHandler(this, &MainPage::TestTimer), period);
+
+	weArtClient->Run();
+}
+
+void MainPage::TestTimer(Windows::System::Threading::ThreadPoolTimer^ timer)
+{
+	std::ostringstream ss;
+	ss << indexThimbleTracking->GetClosure();
+	std::string s = "Closure: " + ss.str() + "\n";
+	
+	OutputDebugStringA(s.c_str());
+
 }
 
 

@@ -176,7 +176,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </ClInclude>
     <ClInclude Include="TouchEffect.h" />
-    <ClInclude Include="WeArtClient.h" />
+    <ClInclude Include="WEART_SDK\WeArtClient.h" />
     <ClInclude Include="WEART_SDK\WeArtClosure.h" />
     <ClInclude Include="WEART_SDK\WeArtCommon.h" />
     <ClInclude Include="WEART_SDK\WeArtEffect.h" />
@@ -186,6 +186,7 @@
     <ClInclude Include="WEART_SDK\WeArtMessageSerializer.h" />
     <ClInclude Include="WEART_SDK\WeArtTemperature.h" />
     <ClInclude Include="WEART_SDK\WeArtTexture.h" />
+    <ClInclude Include="WEART_SDK\WeArtThimbleTrackingObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -227,8 +228,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="TouchEffect.cpp" />
-    <ClCompile Include="WeArtClient.cpp" />
+    <ClCompile Include="WEART_SDK\WeArtClient.cpp" />
     <ClCompile Include="WEART_SDK\WeArtHapticObject.cpp" />
+    <ClCompile Include="WEART_SDK\WeArtThimbleTrackingObject.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
