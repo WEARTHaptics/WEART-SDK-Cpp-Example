@@ -45,7 +45,7 @@ MainPage::MainPage()
 	weArtClient->AddThimbleTracking(indexThimbleTracking);
 
 	TimeSpan period;
-	period.Duration = 1 * 10000000; // 10,000,000 ticks per second
+	period.Duration = 0.2 * 10000000; // 0.2se
 	ThreadPoolTimer::CreatePeriodicTimer(ref new TimerElapsedHandler(this, &MainPage::TestTimer), period);
 
 	weArtClient->Run();
@@ -55,7 +55,7 @@ void MainPage::TestTimer(Windows::System::Threading::ThreadPoolTimer^ timer)
 {
 	std::ostringstream ss;
 	ss << indexThimbleTracking->GetClosure();
-	std::string s = "Closure: " + ss.str() + "\n";
+	std::string s = "Index Thimble Closure: " + ss.str() + "\n";
 	
 	OutputDebugStringA(s.c_str());
 
