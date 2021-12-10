@@ -16,7 +16,7 @@ bool TouchEffect::Set(WeArtTemperature temp, WeArtForce force, WeArtTexture text
 	// Texture
 	changed |= !(effTexture == texture);
 	// forcing Vz texture static
-	texture.textureVelocity[2] = 0.5f;
+	texture.textureVelocity()[2] = 0.5f;
 
 	effTexture = texture;
 
