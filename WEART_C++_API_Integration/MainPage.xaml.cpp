@@ -27,32 +27,39 @@ MainPage::MainPage()
 {
 	InitializeComponent();
 	
-	weArtClient = new WeArtClient("192.168.1.109", "13031");
+	weArtClient = new WeArtClient("192.168.1.109", WeArtConstants::DEFAULT_TCP_PORT); //IP ADDRESS and PORT of Middleware PC
 
+	// create haptic object to manage actuation on Righ hand and Index Thimble
 	hapticObject = new WeArtHapticObject(weArtClient);
 	hapticObject->handSideFlag = HandSide::Right;
 	hapticObject->actuationPointFlag = ActuationPoint::Index;
 
+	//define feeling properties to create an effect
 	WeArtTemperature temperature = WeArtTemperature();
 	WeArtForce force = WeArtForce();
 	WeArtTexture texrure = WeArtTexture();
 
+	// instance a new effect with feeling properties and add effect to thimble
 	touchEffect = new TouchEffect(temperature, force, texrure);
 
 	hapticObject->AddEffect(touchEffect);
 
+	// reference a thimble tracking to read clousure values
 	indexThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Right, ActuationPoint::Index);
 	weArtClient->AddThimbleTracking(indexThimbleTracking);
 
+	// schedule reading closure value any 0.2secs
 	TimeSpan period;
-	period.Duration = 0.2 * 10000000; // 0.2se
+	period.Duration = 0.2 * 10000000; // 0.2sec
 	ThreadPoolTimer::CreatePeriodicTimer(ref new TimerElapsedHandler(this, &MainPage::TestTimer), period);
 
+	// run socket communication 
 	weArtClient->Run();
 }
 
 void MainPage::TestTimer(Windows::System::Threading::ThreadPoolTimer^ timer)
 {
+	// get closure value and print 
 	std::ostringstream ss;
 	ss << indexThimbleTracking->GetClosure();
 	std::string s = "Index Thimble Closure: " + ss.str() + "\n";
@@ -77,18 +84,23 @@ void WEART_C___API_Integration::MainPage::ButtonStopClient_Click(Platform::Objec
 
 void WEART_C___API_Integration::MainPage::ButtonEffectSample1_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
+	// define temperature
 	WeArtTemperature temperature = WeArtTemperature();
-	temperature.active = true;
-	temperature.value = 0.2f;
+	temperature.active = true; //must be active if you want feel
+	temperature.value(0.2f);
 
+	// define force
 	WeArtForce force = WeArtForce();
 	force.active = true;
-	force.value = 0.4f;
+	force.value(0.4f);
 
+	// define null Texture
 	WeArtTexture texture = WeArtTexture();
 
+	// set properties to effect
 	touchEffect->Set(temperature, force, texture);
 
+	// add effect to thimble or update
 	if (hapticObject->activeEffects.size() <= 0)
 		hapticObject->AddEffect(touchEffect);
 	else 
@@ -98,18 +110,23 @@ void WEART_C___API_Integration::MainPage::ButtonEffectSample1_Click(Platform::Ob
 
 void WEART_C___API_Integration::MainPage::ButtonEffectSample2_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
+	// define temperature
 	WeArtTemperature temperature = WeArtTemperature();
 	temperature.active = true;
-	temperature.value = 0.4f;
+	temperature.value(0.4f);
 
+	// define force
 	WeArtForce force = WeArtForce();
 	force.active = true;
-	force.value = 0.6f;
+	force.value(0.6f);
 
+	// define null Texture
 	WeArtTexture texture = WeArtTexture();
 
+	// set properties to effect
 	touchEffect->Set(temperature, force, texture);
 
+	// add effect to thimble or update
 	if (hapticObject->activeEffects.size() <= 0)
 		hapticObject->AddEffect(touchEffect);
 	else
@@ -119,20 +136,25 @@ void WEART_C___API_Integration::MainPage::ButtonEffectSample2_Click(Platform::Ob
 
 void WEART_C___API_Integration::MainPage::ButtonEffectSample3_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
+	// define temperature
 	WeArtTemperature temperature = WeArtTemperature();
 	temperature.active = true;
-	temperature.value = 0.8f;
+	temperature.value(0.8f);
 
+	// define force
 	WeArtForce force = WeArtForce();
 	force.active = true;
-	force.value = 0.9f;
+	force.value(0.9f);
 
+	// define TextileMeshMedium Texture
 	WeArtTexture texture = WeArtTexture();
 	texture.active = true;
-	texture.textureType = TextureType::TextileMeshMedium;
+	texture.textureType(TextureType::TextileMeshMedium);
 
+	// set properties to effect
 	touchEffect->Set(temperature, force, texture);
 
+	// add effect to thimble or update
 	if (hapticObject->activeEffects.size() <= 0)
 		hapticObject->AddEffect(touchEffect);
 	else
@@ -142,5 +164,6 @@ void WEART_C___API_Integration::MainPage::ButtonEffectSample3_Click(Platform::Ob
 
 void WEART_C___API_Integration::MainPage::ButtonRemoveEffect_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
+	//remove effect from thimble actuations
 	hapticObject->RemoveEffect(touchEffect);
 }
