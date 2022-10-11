@@ -9,6 +9,7 @@
 #include <WEART_SDK/WeArtClient.h>
 #include <WEART_SDK/WeArtHapticObject.h>
 #include <WEART_SDK/WeArtThimbleTrackingObject.h>
+#include <WEART_SDK/WeArtRawSensorData.h>
 #include "TouchEffect.h"
 
 namespace WEART_C___API_Integration
@@ -29,10 +30,15 @@ namespace WEART_C___API_Integration
 		void ButtonRemoveEffect_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 
 		void TestTimer(Windows::System::Threading::ThreadPoolTimer^ timer);
+		void RenderRawSensorsData();
 
 		WeArtClient* weArtClient;
 		WeArtHapticObject* hapticObject;
 		TouchEffect* touchEffect;
 		WeArtThimbleTrackingObject* indexThimbleTracking;
+		WeArtRawSensorData* indexRightRawSensorData;
+		WeArtRawSensorData* thumbRightRawSensorData;
+		WeArtRawSensorData* middleRightRawSensorData;
+
 	};
 }

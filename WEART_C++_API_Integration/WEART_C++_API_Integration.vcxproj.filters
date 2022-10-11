@@ -9,7 +9,7 @@
       <Extensions>bmp;fbx;gif;jpg;jpeg;tga;tiff;tif;png</Extensions>
     </Filter>
     <Filter Include="WEART_SDK">
-      <UniqueIdentifier>{2cf4bcc2-67ef-42ae-a039-b76dfb856425}</UniqueIdentifier>
+      <UniqueIdentifier>{7ea97dec-a0b6-4ea5-b611-ab3d1f48a7c2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -17,23 +17,36 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="WEART_SDK\WeArtHapticObject.cpp">
-      <Filter>WEART_SDK</Filter>
-    </ClCompile>
     <ClCompile Include="TouchEffect.cpp" />
     <ClCompile Include="WEART_SDK\WeArtClient.cpp">
+      <Filter>WEART_SDK</Filter>
+    </ClCompile>
+    <ClCompile Include="WEART_SDK\WeArtHapticObject.cpp">
       <Filter>WEART_SDK</Filter>
     </ClCompile>
     <ClCompile Include="WEART_SDK\WeArtThimbleTrackingObject.cpp">
       <Filter>WEART_SDK</Filter>
     </ClCompile>
+    <ClCompile Include="WEART_SDK\WeArtRawSensorData.cpp">
+      <Filter>WEART_SDK</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="TouchEffect.h" />
+    <ClInclude Include="WEART_SDK\WeArtThimbleTrackingObject.h">
+      <Filter>WEART_SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="WEART_SDK\WeArtClient.h">
+      <Filter>WEART_SDK</Filter>
+    </ClInclude>
     <ClInclude Include="WEART_SDK\WeArtClosure.h">
       <Filter>WEART_SDK</Filter>
     </ClInclude>
     <ClInclude Include="WEART_SDK\WeArtCommon.h">
+      <Filter>WEART_SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="WEART_SDK\WeArtController.h">
       <Filter>WEART_SDK</Filter>
     </ClInclude>
     <ClInclude Include="WEART_SDK\WeArtEffect.h">
@@ -57,11 +70,7 @@
     <ClInclude Include="WEART_SDK\WeArtTexture.h">
       <Filter>WEART_SDK</Filter>
     </ClInclude>
-    <ClInclude Include="TouchEffect.h" />
-    <ClInclude Include="WEART_SDK\WeArtClient.h">
-      <Filter>WEART_SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="WEART_SDK\WeArtThimbleTrackingObject.h">
+    <ClInclude Include="WEART_SDK\WeArtRawSensorData.h">
       <Filter>WEART_SDK</Filter>
     </ClInclude>
   </ItemGroup>

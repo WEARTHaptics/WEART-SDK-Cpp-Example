@@ -27,7 +27,7 @@ MainPage::MainPage()
 {
 	InitializeComponent();
 	
-	weArtClient = new WeArtClient("192.168.1.109", WeArtConstants::DEFAULT_TCP_PORT); //IP ADDRESS and PORT of Middleware PC
+	weArtClient = new WeArtClient("127.0.0.1", WeArtConstants::DEFAULT_TCP_PORT); //IP ADDRESS and PORT of Middleware PC
 
 	// create haptic object to manage actuation on Righ hand and Index Thimble
 	hapticObject = new WeArtHapticObject(weArtClient);
@@ -48,6 +48,19 @@ MainPage::MainPage()
 	indexThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Right, ActuationPoint::Index);
 	weArtClient->AddThimbleTracking(indexThimbleTracking);
 
+	// index thimble raw sensors data
+	indexRightRawSensorData = new WeArtRawSensorData(HandSide::Right, ActuationPoint::Index);
+	weArtClient->AddThimbleRawSensors(indexRightRawSensorData);
+
+	//thumb thimble raw sensors data
+	thumbRightRawSensorData = new WeArtRawSensorData(HandSide::Right, ActuationPoint::Thumb);
+	weArtClient->AddThimbleRawSensors(thumbRightRawSensorData);
+
+	//thumb thimble raw sensors data
+	middleRightRawSensorData = new WeArtRawSensorData(HandSide::Right, ActuationPoint::Middle);
+	weArtClient->AddThimbleRawSensors(middleRightRawSensorData);
+
+
 	// schedule reading closure value any 0.2secs
 	TimeSpan period;
 	period.Duration = 0.2 * 10000000; // 0.2sec
@@ -59,13 +72,55 @@ MainPage::MainPage()
 
 void MainPage::TestTimer(Windows::System::Threading::ThreadPoolTimer^ timer)
 {
+	/*
 	// get closure value and print 
 	std::ostringstream ss;
 	ss << indexThimbleTracking->GetClosure();
 	std::string s = "Index Thimble Closure: " + ss.str() + "\n";
 	
 	OutputDebugStringA(s.c_str());
+	*/
+	Dispatcher->RunAsync(CoreDispatcherPriority::High,
+		ref new DispatchedHandler([this]()
+			{
+				RenderRawSensorsData();
 
+			}));
+}
+
+void WEART_C___API_Integration::MainPage::RenderRawSensorsData() {
+	// Index Right
+	ValueIndexRightAccX->Text = indexRightRawSensorData->AccX.ToString();
+	ValueIndexRightAccY->Text = indexRightRawSensorData->AccY.ToString();
+	ValueIndexRightAccZ->Text = indexRightRawSensorData->AccZ.ToString();
+
+	ValueIndexRightGyroX->Text = indexRightRawSensorData->GyroX.ToString();
+	ValueIndexRightGyroY->Text = indexRightRawSensorData->GyroY.ToString();
+	ValueIndexRightGyroZ->Text = indexRightRawSensorData->GyroZ.ToString();
+
+	ValueIndexRightTOF->Text = indexRightRawSensorData->TOF.ToString();
+
+	// Thumb Right
+	ValueThumbRightAccX->Text = thumbRightRawSensorData->AccX.ToString();
+	ValueThumbRightAccY->Text = thumbRightRawSensorData->AccY.ToString();
+	ValueThumbRightAccZ->Text = thumbRightRawSensorData->AccZ.ToString();
+
+	ValueThumbRightGyroX->Text = thumbRightRawSensorData->GyroX.ToString();
+	ValueThumbRightGyroY->Text = thumbRightRawSensorData->GyroY.ToString();
+	ValueThumbRightGyroZ->Text = thumbRightRawSensorData->GyroZ.ToString();
+
+	ValueThumbRightTOF->Text = thumbRightRawSensorData->TOF.ToString();
+
+	// MIddle Right
+	ValueMiddleRightAccX->Text = middleRightRawSensorData->AccX.ToString();
+	ValueMiddleRightAccY->Text = middleRightRawSensorData->AccY.ToString();
+	ValueMiddleRightAccZ->Text = middleRightRawSensorData->AccZ.ToString();
+
+	ValueMiddleRightGyroX->Text = middleRightRawSensorData->GyroX.ToString();
+	ValueMiddleRightGyroY->Text = middleRightRawSensorData->GyroY.ToString();
+	ValueMiddleRightGyroZ->Text = middleRightRawSensorData->GyroZ.ToString();
+
+	ValueMiddleRightTOF->Text = middleRightRawSensorData->TOF.ToString();
 }
 
 

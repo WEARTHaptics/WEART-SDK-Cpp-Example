@@ -60,7 +60,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -179,11 +179,13 @@
     <ClInclude Include="WEART_SDK\WeArtClient.h" />
     <ClInclude Include="WEART_SDK\WeArtClosure.h" />
     <ClInclude Include="WEART_SDK\WeArtCommon.h" />
+    <ClInclude Include="WEART_SDK\WeArtController.h" />
     <ClInclude Include="WEART_SDK\WeArtEffect.h" />
     <ClInclude Include="WEART_SDK\WeArtForce.h" />
     <ClInclude Include="WEART_SDK\WeArtHapticObject.h" />
     <ClInclude Include="WEART_SDK\WeArtMessages.h" />
     <ClInclude Include="WEART_SDK\WeArtMessageSerializer.h" />
+    <ClInclude Include="WEART_SDK\WeArtRawSensorData.h" />
     <ClInclude Include="WEART_SDK\WeArtTemperature.h" />
     <ClInclude Include="WEART_SDK\WeArtTexture.h" />
     <ClInclude Include="WEART_SDK\WeArtThimbleTrackingObject.h" />
@@ -230,6 +232,7 @@
     <ClCompile Include="TouchEffect.cpp" />
     <ClCompile Include="WEART_SDK\WeArtClient.cpp" />
     <ClCompile Include="WEART_SDK\WeArtHapticObject.cpp" />
+    <ClCompile Include="WEART_SDK\WeArtRawSensorData.cpp" />
     <ClCompile Include="WEART_SDK\WeArtThimbleTrackingObject.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
