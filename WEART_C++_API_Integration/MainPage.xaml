@@ -67,6 +67,91 @@
                 <TextBlock Text="TOF:" x:Name="LabelMiddleRightTOF" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                 <TextBlock Text="0.0" x:Name="ValueMiddleRightTOF" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Palm Right" x:Name="PalmRight" Margin="10,300,0,0" FontSize="20" FontWeight="Bold" Width="158" HorizontalAlignment="Left"/>
+                <TextBlock Text="AccX:" x:Name="LabelPalmRightAccX" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValuePalmRightAccX" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="AccY:" x:Name="LabelPalmRightAccY" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValuePalmRightAccY" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="AccZ:" x:Name="LabelPalmRightAccZ" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValuePalmRightAccZ" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="GyroX:" x:Name="LabelPalmRightGyroX" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValuePalmRightGyroX" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="GyroY:" x:Name="LabelPalmRightGyroY" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValuePalmRightGyroY" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="GyroZ:" x:Name="LabelPalmRightGyroZ" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValuePalmRightGyroZ" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="TOF:" x:Name="LabelPalmRightTOF" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValuePalmRightTOF" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Margin="100, 0,0,0">
+                <TextBlock Text="Index Left" x:Name="IndexLeft" Margin="10,300,0,0" FontSize="20" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="AccX:" x:Name="LabelIndexLeftAccX" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValueIndexLeftAccX" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="AccY:" x:Name="LabelIndexLeftAccY" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValueIndexLeftAccY" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="AccZ:" x:Name="LabelIndexLeftAccZ" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValueIndexLeftAccZ" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="GyroX:" x:Name="LabelIndexLeftGyroX" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValueIndexLeftGyroX" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="GyroY:" x:Name="LabelIndexLeftGyroY" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValueIndexLeftGyroY" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="GyroZ:" x:Name="LabelIndexLeftGyroZ" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValueIndexLeftGyroZ" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="TOF:" x:Name="LabelIndexLeftTOF" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValueIndexLeftTOF" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Thumb Left" x:Name="ThumbLeft" Margin="10,300,0,0" FontSize="20" FontWeight="Bold" Width="140" HorizontalAlignment="Left"/>
+                <TextBlock Text="AccX:" x:Name="LabelThumbLeftAccX" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValueThumbLeftAccX" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="AccY:" x:Name="LabelThumbLeftAccY" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValueThumbLeftAccY" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="AccZ:" x:Name="LabelThumbLeftAccZ" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValueThumbLeftAccZ" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="GyroX:" x:Name="LabelThumbLeftGyroX" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValueThumbLeftGyroX" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="GyroY:" x:Name="LabelThumbLeftGyroY" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValueThumbLeftGyroY" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="GyroZ:" x:Name="LabelThumbLeftGyroZ" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValueThumbLeftGyroZ" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="TOF:" x:Name="LabelThumbLeftTOF" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValueThumbLeftTOF" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Middle Right" x:Name="MiddleLeft" Margin="10,300,0,0" FontSize="20" FontWeight="Bold" Width="158" HorizontalAlignment="Left"/>
+                <TextBlock Text="AccX:" x:Name="LabelMiddleLeftAccX" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValueMiddleLeftAccX" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="AccY:" x:Name="LabelMiddleLeftAccY" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValueMiddleLeftAccY" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="AccZ:" x:Name="LabelMiddleLeftAccZ" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValueMiddleLeftAccZ" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="GyroX:" x:Name="LabelMiddleLeftGyroX" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValueMiddleLeftGyroX" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="GyroY:" x:Name="LabelMiddleLeftGyroY" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValueMiddleLeftGyroY" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="GyroZ:" x:Name="LabelMiddleLeftGyroZ" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValueMiddleLeftGyroZ" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="TOF:" x:Name="LabelMiddleLeftTOF" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValueMiddleLeftTOF" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Middle Right" x:Name="PalmLeft" Margin="10,300,0,0" FontSize="20" FontWeight="Bold" Width="158" HorizontalAlignment="Left"/>
+                <TextBlock Text="AccX:" x:Name="LabelPalmLeftAccX" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValuePalmLeftAccX" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="AccY:" x:Name="LabelPalmLeftAccY" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValuePalmLeftAccY" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="AccZ:" x:Name="LabelPalmLeftAccZ" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValuePalmLeftAccZ" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="GyroX:" x:Name="LabelPalmLeftGyroX" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValuePalmLeftGyroX" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="GyroY:" x:Name="LabelPalmLeftGyroY" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValuePalmLeftGyroY" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="GyroZ:" x:Name="LabelPalmLeftGyroZ" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValuePalmLeftGyroZ" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="TOF:" x:Name="LabelPalmLeftTOF" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="0.0" x:Name="ValuePalmLeftTOF" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>

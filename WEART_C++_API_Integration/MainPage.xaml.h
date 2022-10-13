@@ -35,10 +35,17 @@ namespace WEART_C___API_Integration
 		WeArtClient* weArtClient;
 		WeArtHapticObject* hapticObject;
 		TouchEffect* touchEffect;
+
 		WeArtThimbleTrackingObject* indexThimbleTracking;
 		WeArtRawSensorData* indexRightRawSensorData;
 		WeArtRawSensorData* thumbRightRawSensorData;
 		WeArtRawSensorData* middleRightRawSensorData;
+		WeArtRawSensorData* palmRightRawSensorData;
+
+		WeArtRawSensorData* indexLeftRawSensorData;
+		WeArtRawSensorData* thumbLeftRawSensorData;
+		WeArtRawSensorData* middleLeftRawSensorData;
+		WeArtRawSensorData* palmLeftRawSensorData;
 
 	};
 }

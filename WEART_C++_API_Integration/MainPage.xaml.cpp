@@ -48,6 +48,8 @@ MainPage::MainPage()
 	indexThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Right, ActuationPoint::Index);
 	weArtClient->AddThimbleTracking(indexThimbleTracking);
 
+	// RIGHT THIMBLE - RAW SENSORS DATA
+
 	// index thimble raw sensors data
 	indexRightRawSensorData = new WeArtRawSensorData(HandSide::Right, ActuationPoint::Index);
 	weArtClient->AddThimbleRawSensors(indexRightRawSensorData);
@@ -60,10 +62,31 @@ MainPage::MainPage()
 	middleRightRawSensorData = new WeArtRawSensorData(HandSide::Right, ActuationPoint::Middle);
 	weArtClient->AddThimbleRawSensors(middleRightRawSensorData);
 
+	//palm raw sensors data
+	palmRightRawSensorData = new WeArtRawSensorData(HandSide::Right, ActuationPoint::Palm);
+	weArtClient->AddThimbleRawSensors(palmRightRawSensorData);
 
-	// schedule reading closure value any 0.2secs
+	// LEFT THIMBLE - RAW SENSORS DATA
+
+	// index thimble raw sensors data
+	indexLeftRawSensorData = new WeArtRawSensorData(HandSide::Left, ActuationPoint::Index);
+	weArtClient->AddThimbleRawSensors(indexLeftRawSensorData);
+
+	//thumb thimble raw sensors data
+	thumbLeftRawSensorData = new WeArtRawSensorData(HandSide::Left, ActuationPoint::Thumb);
+	weArtClient->AddThimbleRawSensors(thumbLeftRawSensorData);
+
+	//thumb thimble raw sensors data
+	middleLeftRawSensorData = new WeArtRawSensorData(HandSide::Left, ActuationPoint::Middle);
+	weArtClient->AddThimbleRawSensors(middleLeftRawSensorData);
+
+	//palm raw sensors data
+	palmLeftRawSensorData = new WeArtRawSensorData(HandSide::Left, ActuationPoint::Palm);
+	weArtClient->AddThimbleRawSensors(palmLeftRawSensorData);
+
+	// schedule reading closure value any 0.1secs
 	TimeSpan period;
-	period.Duration = 0.2 * 10000000; // 0.2sec
+	period.Duration = 0.1 * 10000000; // 0.1sec
 	ThreadPoolTimer::CreatePeriodicTimer(ref new TimerElapsedHandler(this, &MainPage::TestTimer), period);
 
 	// run socket communication 
@@ -90,37 +113,92 @@ void MainPage::TestTimer(Windows::System::Threading::ThreadPoolTimer^ timer)
 
 void WEART_C___API_Integration::MainPage::RenderRawSensorsData() {
 	// Index Right
-	ValueIndexRightAccX->Text = indexRightRawSensorData->AccX.ToString();
-	ValueIndexRightAccY->Text = indexRightRawSensorData->AccY.ToString();
-	ValueIndexRightAccZ->Text = indexRightRawSensorData->AccZ.ToString();
+	ValueIndexRightAccX->Text = indexRightRawSensorData->GetLastSample()->AccX.ToString();
+	ValueIndexRightAccY->Text = indexRightRawSensorData->GetLastSample()->AccY.ToString();
+	ValueIndexRightAccZ->Text = indexRightRawSensorData->GetLastSample()->AccZ.ToString();
 
-	ValueIndexRightGyroX->Text = indexRightRawSensorData->GyroX.ToString();
-	ValueIndexRightGyroY->Text = indexRightRawSensorData->GyroY.ToString();
-	ValueIndexRightGyroZ->Text = indexRightRawSensorData->GyroZ.ToString();
+	ValueIndexRightGyroX->Text = indexRightRawSensorData->GetLastSample()->GyroX.ToString();
+	ValueIndexRightGyroY->Text = indexRightRawSensorData->GetLastSample()->GyroY.ToString();
+	ValueIndexRightGyroZ->Text = indexRightRawSensorData->GetLastSample()->GyroZ.ToString();
 
-	ValueIndexRightTOF->Text = indexRightRawSensorData->TOF.ToString();
+	ValueIndexRightTOF->Text = indexRightRawSensorData->GetLastSample()->TOF.ToString();
 
 	// Thumb Right
-	ValueThumbRightAccX->Text = thumbRightRawSensorData->AccX.ToString();
-	ValueThumbRightAccY->Text = thumbRightRawSensorData->AccY.ToString();
-	ValueThumbRightAccZ->Text = thumbRightRawSensorData->AccZ.ToString();
+	ValueThumbRightAccX->Text = thumbRightRawSensorData->GetLastSample()->AccX.ToString();
+	ValueThumbRightAccY->Text = thumbRightRawSensorData->GetLastSample()->AccY.ToString();
+	ValueThumbRightAccZ->Text = thumbRightRawSensorData->GetLastSample()->AccZ.ToString();
 
-	ValueThumbRightGyroX->Text = thumbRightRawSensorData->GyroX.ToString();
-	ValueThumbRightGyroY->Text = thumbRightRawSensorData->GyroY.ToString();
-	ValueThumbRightGyroZ->Text = thumbRightRawSensorData->GyroZ.ToString();
+	ValueThumbRightGyroX->Text = thumbRightRawSensorData->GetLastSample()->GyroX.ToString();
+	ValueThumbRightGyroY->Text = thumbRightRawSensorData->GetLastSample()->GyroY.ToString();
+	ValueThumbRightGyroZ->Text = thumbRightRawSensorData->GetLastSample()->GyroZ.ToString();
 
-	ValueThumbRightTOF->Text = thumbRightRawSensorData->TOF.ToString();
+	ValueThumbRightTOF->Text = thumbRightRawSensorData->GetLastSample()->TOF.ToString();
 
 	// MIddle Right
-	ValueMiddleRightAccX->Text = middleRightRawSensorData->AccX.ToString();
-	ValueMiddleRightAccY->Text = middleRightRawSensorData->AccY.ToString();
-	ValueMiddleRightAccZ->Text = middleRightRawSensorData->AccZ.ToString();
+	ValueMiddleRightAccX->Text = middleRightRawSensorData->GetLastSample()->AccX.ToString();
+	ValueMiddleRightAccY->Text = middleRightRawSensorData->GetLastSample()->AccY.ToString();
+	ValueMiddleRightAccZ->Text = middleRightRawSensorData->GetLastSample()->AccZ.ToString();
 
-	ValueMiddleRightGyroX->Text = middleRightRawSensorData->GyroX.ToString();
-	ValueMiddleRightGyroY->Text = middleRightRawSensorData->GyroY.ToString();
-	ValueMiddleRightGyroZ->Text = middleRightRawSensorData->GyroZ.ToString();
+	ValueMiddleRightGyroX->Text = middleRightRawSensorData->GetLastSample()->GyroX.ToString();
+	ValueMiddleRightGyroY->Text = middleRightRawSensorData->GetLastSample()->GyroY.ToString();
+	ValueMiddleRightGyroZ->Text = middleRightRawSensorData->GetLastSample()->GyroZ.ToString();
 
-	ValueMiddleRightTOF->Text = middleRightRawSensorData->TOF.ToString();
+	ValueMiddleRightTOF->Text = middleRightRawSensorData->GetLastSample()->TOF.ToString();
+
+	// Palm Right
+	ValuePalmRightAccX->Text = palmRightRawSensorData->GetLastSample()->AccX.ToString();
+	ValuePalmRightAccY->Text = palmRightRawSensorData->GetLastSample()->AccY.ToString();
+	ValuePalmRightAccZ->Text = palmRightRawSensorData->GetLastSample()->AccZ.ToString();
+
+	ValuePalmRightGyroX->Text = palmRightRawSensorData->GetLastSample()->GyroX.ToString();
+	ValuePalmRightGyroY->Text = palmRightRawSensorData->GetLastSample()->GyroY.ToString();
+	ValuePalmRightGyroZ->Text = palmRightRawSensorData->GetLastSample()->GyroZ.ToString();
+
+	ValuePalmRightTOF->Text = palmRightRawSensorData->GetLastSample()->TOF.ToString();
+
+	// Index LEFT
+	ValueIndexLeftAccX->Text = indexLeftRawSensorData->GetLastSample()->AccX.ToString();
+	ValueIndexLeftAccY->Text = indexLeftRawSensorData->GetLastSample()->AccY.ToString();
+	ValueIndexLeftAccZ->Text = indexLeftRawSensorData->GetLastSample()->AccZ.ToString();
+
+	ValueIndexLeftGyroX->Text = indexLeftRawSensorData->GetLastSample()->GyroX.ToString();
+	ValueIndexLeftGyroY->Text = indexLeftRawSensorData->GetLastSample()->GyroY.ToString();
+	ValueIndexLeftGyroZ->Text = indexLeftRawSensorData->GetLastSample()->GyroZ.ToString();
+
+	ValueIndexLeftTOF->Text = indexLeftRawSensorData->GetLastSample()->TOF.ToString();
+
+	// Thumb Right
+	ValueThumbLeftAccX->Text = thumbLeftRawSensorData->GetLastSample()->AccX.ToString();
+	ValueThumbLeftAccY->Text = thumbLeftRawSensorData->GetLastSample()->AccY.ToString();
+	ValueThumbLeftAccZ->Text = thumbLeftRawSensorData->GetLastSample()->AccZ.ToString();
+
+	ValueThumbLeftGyroX->Text = thumbLeftRawSensorData->GetLastSample()->GyroX.ToString();
+	ValueThumbLeftGyroY->Text = thumbLeftRawSensorData->GetLastSample()->GyroY.ToString();
+	ValueThumbLeftGyroZ->Text = thumbLeftRawSensorData->GetLastSample()->GyroZ.ToString();
+
+	ValueThumbLeftTOF->Text = thumbLeftRawSensorData->GetLastSample()->TOF.ToString();
+
+	// MIddle Right
+	ValueMiddleLeftAccX->Text = middleLeftRawSensorData->GetLastSample()->AccX.ToString();
+	ValueMiddleLeftAccY->Text = middleLeftRawSensorData->GetLastSample()->AccY.ToString();
+	ValueMiddleLeftAccZ->Text = middleLeftRawSensorData->GetLastSample()->AccZ.ToString();
+
+	ValueMiddleLeftGyroX->Text = middleLeftRawSensorData->GetLastSample()->GyroX.ToString();
+	ValueMiddleLeftGyroY->Text = middleLeftRawSensorData->GetLastSample()->GyroY.ToString();
+	ValueMiddleLeftGyroZ->Text = middleLeftRawSensorData->GetLastSample()->GyroZ.ToString();
+
+	ValueMiddleLeftTOF->Text = middleLeftRawSensorData->GetLastSample()->TOF.ToString();
+
+	// Palm Left
+	ValuePalmLeftAccX->Text = palmLeftRawSensorData->GetLastSample()->AccX.ToString();
+	ValuePalmLeftAccY->Text = palmLeftRawSensorData->GetLastSample()->AccY.ToString();
+	ValuePalmLeftAccZ->Text = palmLeftRawSensorData->GetLastSample()->AccZ.ToString();
+
+	ValuePalmLeftGyroX->Text = palmLeftRawSensorData->GetLastSample()->GyroX.ToString();
+	ValuePalmLeftGyroY->Text = palmLeftRawSensorData->GetLastSample()->GyroY.ToString();
+	ValuePalmLeftGyroZ->Text = palmLeftRawSensorData->GetLastSample()->GyroZ.ToString();
+
+	ValuePalmLeftTOF->Text = palmLeftRawSensorData->GetLastSample()->TOF.ToString();
 }
 
 
