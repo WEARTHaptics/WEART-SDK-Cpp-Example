@@ -51,37 +51,37 @@ MainPage::MainPage()
 	// RIGHT THIMBLE - RAW SENSORS DATA
 
 	// index thimble raw sensors data
-	indexRightRawSensorData = new WeArtRawSensorData(HandSide::Right, ActuationPoint::Index);
+	indexRightRawSensorData = new WeArtRawSensorsData(HandSide::Right, ActuationPoint::Index);
 	weArtClient->AddThimbleRawSensors(indexRightRawSensorData);
 
 	//thumb thimble raw sensors data
-	thumbRightRawSensorData = new WeArtRawSensorData(HandSide::Right, ActuationPoint::Thumb);
+	thumbRightRawSensorData = new WeArtRawSensorsData(HandSide::Right, ActuationPoint::Thumb);
 	weArtClient->AddThimbleRawSensors(thumbRightRawSensorData);
 
 	//thumb thimble raw sensors data
-	middleRightRawSensorData = new WeArtRawSensorData(HandSide::Right, ActuationPoint::Middle);
+	middleRightRawSensorData = new WeArtRawSensorsData(HandSide::Right, ActuationPoint::Middle);
 	weArtClient->AddThimbleRawSensors(middleRightRawSensorData);
 
 	//palm raw sensors data
-	palmRightRawSensorData = new WeArtRawSensorData(HandSide::Right, ActuationPoint::Palm);
+	palmRightRawSensorData = new WeArtRawSensorsData(HandSide::Right, ActuationPoint::Palm);
 	weArtClient->AddThimbleRawSensors(palmRightRawSensorData);
 
 	// LEFT THIMBLE - RAW SENSORS DATA
 
 	// index thimble raw sensors data
-	indexLeftRawSensorData = new WeArtRawSensorData(HandSide::Left, ActuationPoint::Index);
+	indexLeftRawSensorData = new WeArtRawSensorsData(HandSide::Left, ActuationPoint::Index);
 	weArtClient->AddThimbleRawSensors(indexLeftRawSensorData);
 
 	//thumb thimble raw sensors data
-	thumbLeftRawSensorData = new WeArtRawSensorData(HandSide::Left, ActuationPoint::Thumb);
+	thumbLeftRawSensorData = new WeArtRawSensorsData(HandSide::Left, ActuationPoint::Thumb);
 	weArtClient->AddThimbleRawSensors(thumbLeftRawSensorData);
 
 	//thumb thimble raw sensors data
-	middleLeftRawSensorData = new WeArtRawSensorData(HandSide::Left, ActuationPoint::Middle);
+	middleLeftRawSensorData = new WeArtRawSensorsData(HandSide::Left, ActuationPoint::Middle);
 	weArtClient->AddThimbleRawSensors(middleLeftRawSensorData);
 
 	//palm raw sensors data
-	palmLeftRawSensorData = new WeArtRawSensorData(HandSide::Left, ActuationPoint::Palm);
+	palmLeftRawSensorData = new WeArtRawSensorsData(HandSide::Left, ActuationPoint::Palm);
 	weArtClient->AddThimbleRawSensors(palmLeftRawSensorData);
 
 	// schedule reading closure value any 0.1secs
@@ -103,6 +103,7 @@ void MainPage::TestTimer(Windows::System::Threading::ThreadPoolTimer^ timer)
 	
 	OutputDebugStringA(s.c_str());
 	*/
+
 	Dispatcher->RunAsync(CoreDispatcherPriority::High,
 		ref new DispatchedHandler([this]()
 			{
@@ -112,6 +113,7 @@ void MainPage::TestTimer(Windows::System::Threading::ThreadPoolTimer^ timer)
 }
 
 void WEART_C___API_Integration::MainPage::RenderRawSensorsData() {
+
 	// Index Right
 	ValueIndexRightAccX->Text = indexRightRawSensorData->GetLastSample()->AccX.ToString();
 	ValueIndexRightAccY->Text = indexRightRawSensorData->GetLastSample()->AccY.ToString();

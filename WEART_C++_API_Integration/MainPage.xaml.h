@@ -9,7 +9,7 @@
 #include <WEART_SDK/WeArtClient.h>
 #include <WEART_SDK/WeArtHapticObject.h>
 #include <WEART_SDK/WeArtThimbleTrackingObject.h>
-#include <WEART_SDK/WeArtRawSensorData.h>
+#include <WEART_SDK/WeArtRawSensorsData.h>
 #include "TouchEffect.h"
 
 namespace WEART_C___API_Integration
@@ -37,15 +37,15 @@ namespace WEART_C___API_Integration
 		TouchEffect* touchEffect;
 
 		WeArtThimbleTrackingObject* indexThimbleTracking;
-		WeArtRawSensorData* indexRightRawSensorData;
-		WeArtRawSensorData* thumbRightRawSensorData;
-		WeArtRawSensorData* middleRightRawSensorData;
-		WeArtRawSensorData* palmRightRawSensorData;
+		WeArtRawSensorsData* indexRightRawSensorData;
+		WeArtRawSensorsData* thumbRightRawSensorData;
+		WeArtRawSensorsData* middleRightRawSensorData;
+		WeArtRawSensorsData* palmRightRawSensorData;
 
-		WeArtRawSensorData* indexLeftRawSensorData;
-		WeArtRawSensorData* thumbLeftRawSensorData;
-		WeArtRawSensorData* middleLeftRawSensorData;
-		WeArtRawSensorData* palmLeftRawSensorData;
+		WeArtRawSensorsData* indexLeftRawSensorData;
+		WeArtRawSensorsData* thumbLeftRawSensorData;
+		WeArtRawSensorsData* middleLeftRawSensorData;
+		WeArtRawSensorsData* palmLeftRawSensorData;
 
 	};
 }
