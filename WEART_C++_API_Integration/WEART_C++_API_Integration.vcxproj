@@ -185,7 +185,7 @@
     <ClInclude Include="WEART_SDK\WeArtHapticObject.h" />
     <ClInclude Include="WEART_SDK\WeArtMessages.h" />
     <ClInclude Include="WEART_SDK\WeArtMessageSerializer.h" />
-    <ClInclude Include="WEART_SDK\WeArtRawSensorData.h" />
+    <ClInclude Include="WEART_SDK\WeArtRawSensorsData.h" />
     <ClInclude Include="WEART_SDK\WeArtTemperature.h" />
     <ClInclude Include="WEART_SDK\WeArtTexture.h" />
     <ClInclude Include="WEART_SDK\WeArtThimbleTrackingObject.h" />
@@ -232,7 +232,7 @@
     <ClCompile Include="TouchEffect.cpp" />
     <ClCompile Include="WEART_SDK\WeArtClient.cpp" />
     <ClCompile Include="WEART_SDK\WeArtHapticObject.cpp" />
-    <ClCompile Include="WEART_SDK\WeArtRawSensorData.cpp" />
+    <ClCompile Include="WEART_SDK\WeArtRawSensorsData.cpp" />
     <ClCompile Include="WEART_SDK\WeArtThimbleTrackingObject.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
