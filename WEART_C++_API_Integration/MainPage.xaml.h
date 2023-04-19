@@ -10,6 +10,7 @@
 #include <WEART_SDK/WeArtHapticObject.h>
 #include <WEART_SDK/WeArtThimbleTrackingObject.h>
 #include <WEART_SDK/WeArtRawSensorsData.h>
+#include <WEART_SDK/WeArtTrackingCalibration.h>
 #include "TouchEffect.h"
 
 namespace WEART_C___API_Integration
@@ -24,6 +25,8 @@ namespace WEART_C___API_Integration
 	private:
 		void ButtonStartClient_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 		void ButtonStopClient_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+		void ButtonStartCalibration_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+		void ButtonStopCalibration_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 		void ButtonEffectSample1_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 		void ButtonEffectSample2_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 		void ButtonEffectSample3_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
@@ -31,12 +34,15 @@ namespace WEART_C___API_Integration
 
 		void TestTimer(Windows::System::Threading::ThreadPoolTimer^ timer);
 		void RenderRawSensorsData();
+		void RenderCalibrationStatus();
 
 		WeArtClient* weArtClient;
 		WeArtHapticObject* hapticObject;
 		TouchEffect* touchEffect;
 
-		WeArtThimbleTrackingObject* indexThimbleTracking;
+		WeArtTrackingCalibration* calibration;
+		bool calibrating = false;
+
 		// Closure tracking
 		WeArtThimbleTrackingObject* indexRightThimbleTracking;
 		WeArtThimbleTrackingObject* thumbRightThimbleTracking;
@@ -56,6 +62,5 @@ namespace WEART_C___API_Integration
 		WeArtRawSensorsData* thumbLeftRawSensorData;
 		WeArtRawSensorsData* middleLeftRawSensorData;
 		WeArtRawSensorsData* palmLeftRawSensorData;
-
 	};
 }

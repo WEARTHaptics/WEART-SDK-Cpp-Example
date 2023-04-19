@@ -39,6 +39,10 @@ MainPage::MainPage()
 	WeArtForce force = WeArtForce();
 	WeArtTexture texrure = WeArtTexture();
 
+	// Add calibration tracker
+	calibration = new WeArtTrackingCalibration();
+	weArtClient->AddMessageListener(calibration);
+
 	// instance a new effect with feeling properties and add effect to thimble
 	touchEffect = new TouchEffect(temperature, force, texrure);
 	hapticObject->AddEffect(touchEffect);
@@ -113,6 +117,7 @@ void MainPage::TestTimer(Windows::System::Threading::ThreadPoolTimer^ timer)
 	Dispatcher->RunAsync(CoreDispatcherPriority::High,
 		ref new DispatchedHandler([this]()
 			{
+				RenderCalibrationStatus();
 				RenderRawSensorsData();
 			}));
 }
@@ -214,6 +219,25 @@ void WEART_C___API_Integration::MainPage::RenderRawSensorsData() {
 	ValuePalmLeftTOF->Text = palmLeftRawSensorData->GetLastSample()->TOF.ToString();
 }
 
+void WEART_C___API_Integration::MainPage::RenderCalibrationStatus() {
+	if (!calibrating) {
+		ButtonStartCalibration->IsEnabled = true;
+		return;
+	}
+
+	TextCalibrationStatus->Text = "Calibrating...";
+
+	if(calibration->getStatus() ==  CalibrationStatus::Running) { 
+		if (calibration->getResult()) {
+			TextCalibrationStatus->Text = "Calibrated!!";
+		} else {
+			TextCalibrationStatus->Text = "Calibration Error";
+		}
+		ButtonStartCalibration->IsEnabled = true;
+		calibrating = false;
+	}
+}
+
 
 
 void WEART_C___API_Integration::MainPage::ButtonStartClient_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
@@ -225,6 +249,13 @@ void WEART_C___API_Integration::MainPage::ButtonStartClient_Click(Platform::Obje
 void WEART_C___API_Integration::MainPage::ButtonStopClient_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
 	weArtClient->Stop();
+}
+
+void WEART_C___API_Integration::MainPage::ButtonStartCalibration_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+	calibrating = true;
+	weArtClient->StartCalibration();
+	ButtonStartCalibration->IsEnabled = false;
 }
 
 
