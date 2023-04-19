@@ -30,6 +30,9 @@
     <ClCompile Include="WEART_SDK\WeArtRawSensorsData.cpp">
       <Filter>WEART_SDK</Filter>
     </ClCompile>
+    <ClCompile Include="WEART_SDK\WeArtTrackingCalibration.cpp">
+      <Filter>WEART_SDK</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -71,6 +74,12 @@
       <Filter>WEART_SDK</Filter>
     </ClInclude>
     <ClInclude Include="WEART_SDK\WeArtRawSensorsData.h">
+      <Filter>WEART_SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="WEART_SDK\WeArtMessageListener.h">
+      <Filter>WEART_SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="WEART_SDK\WeArtTrackingCalibration.h">
       <Filter>WEART_SDK</Filter>
     </ClInclude>
   </ItemGroup>
