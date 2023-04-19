@@ -37,6 +37,16 @@ namespace WEART_C___API_Integration
 		TouchEffect* touchEffect;
 
 		WeArtThimbleTrackingObject* indexThimbleTracking;
+		// Closure tracking
+		WeArtThimbleTrackingObject* indexRightThimbleTracking;
+		WeArtThimbleTrackingObject* thumbRightThimbleTracking;
+		WeArtThimbleTrackingObject* middleRightThimbleTracking;
+
+		WeArtThimbleTrackingObject* indexLeftThimbleTracking;
+		WeArtThimbleTrackingObject* thumbLeftThimbleTracking;
+		WeArtThimbleTrackingObject* middleLeftThimbleTracking;
+
+		// Raw Sensors tracking
 		WeArtRawSensorsData* indexRightRawSensorData;
 		WeArtRawSensorsData* thumbRightRawSensorData;
 		WeArtRawSensorsData* middleRightRawSensorData;

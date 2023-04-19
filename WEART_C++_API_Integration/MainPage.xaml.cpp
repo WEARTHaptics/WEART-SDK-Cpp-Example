@@ -41,12 +41,27 @@ MainPage::MainPage()
 
 	// instance a new effect with feeling properties and add effect to thimble
 	touchEffect = new TouchEffect(temperature, force, texrure);
-
 	hapticObject->AddEffect(touchEffect);
 
-	// reference a thimble tracking to read clousure values
-	indexThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Right, ActuationPoint::Index);
-	weArtClient->AddThimbleTracking(indexThimbleTracking);
+	// Add all thimble tracking objects for closure
+	indexRightThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Right, ActuationPoint::Index);
+	weArtClient->AddThimbleTracking(indexRightThimbleTracking);
+
+	thumbRightThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Right, ActuationPoint::Thumb);
+	weArtClient->AddThimbleTracking(thumbRightThimbleTracking);
+
+	middleRightThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Right, ActuationPoint::Middle);
+	weArtClient->AddThimbleTracking(middleRightThimbleTracking);
+
+	indexLeftThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Left, ActuationPoint::Index);
+	weArtClient->AddThimbleTracking(indexLeftThimbleTracking);
+
+	thumbLeftThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Left, ActuationPoint::Thumb);
+	weArtClient->AddThimbleTracking(thumbLeftThimbleTracking);
+
+	middleLeftThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Left, ActuationPoint::Middle);
+	weArtClient->AddThimbleTracking(middleLeftThimbleTracking);
+
 
 	// RIGHT THIMBLE - RAW SENSORS DATA
 
@@ -95,26 +110,17 @@ MainPage::MainPage()
 
 void MainPage::TestTimer(Windows::System::Threading::ThreadPoolTimer^ timer)
 {
-	/*
-	// get closure value and print 
-	std::ostringstream ss;
-	ss << indexThimbleTracking->GetClosure();
-	std::string s = "Index Thimble Closure: " + ss.str() + "\n";
-	
-	OutputDebugStringA(s.c_str());
-	*/
-
 	Dispatcher->RunAsync(CoreDispatcherPriority::High,
 		ref new DispatchedHandler([this]()
 			{
 				RenderRawSensorsData();
-
 			}));
 }
 
 void WEART_C___API_Integration::MainPage::RenderRawSensorsData() {
 
 	// Index Right
+	ValueIndexRightClosure->Text = indexRightThimbleTracking->GetClosure().ToString();
 	ValueIndexRightAccX->Text = indexRightRawSensorData->GetLastSample()->AccX.ToString();
 	ValueIndexRightAccY->Text = indexRightRawSensorData->GetLastSample()->AccY.ToString();
 	ValueIndexRightAccZ->Text = indexRightRawSensorData->GetLastSample()->AccZ.ToString();
@@ -126,6 +132,7 @@ void WEART_C___API_Integration::MainPage::RenderRawSensorsData() {
 	ValueIndexRightTOF->Text = indexRightRawSensorData->GetLastSample()->TOF.ToString();
 
 	// Thumb Right
+	ValueThumbRightClosure->Text = thumbRightThimbleTracking->GetClosure().ToString();
 	ValueThumbRightAccX->Text = thumbRightRawSensorData->GetLastSample()->AccX.ToString();
 	ValueThumbRightAccY->Text = thumbRightRawSensorData->GetLastSample()->AccY.ToString();
 	ValueThumbRightAccZ->Text = thumbRightRawSensorData->GetLastSample()->AccZ.ToString();
@@ -137,6 +144,7 @@ void WEART_C___API_Integration::MainPage::RenderRawSensorsData() {
 	ValueThumbRightTOF->Text = thumbRightRawSensorData->GetLastSample()->TOF.ToString();
 
 	// MIddle Right
+	ValueMiddleRightClosure->Text = middleRightThimbleTracking->GetClosure().ToString();
 	ValueMiddleRightAccX->Text = middleRightRawSensorData->GetLastSample()->AccX.ToString();
 	ValueMiddleRightAccY->Text = middleRightRawSensorData->GetLastSample()->AccY.ToString();
 	ValueMiddleRightAccZ->Text = middleRightRawSensorData->GetLastSample()->AccZ.ToString();
@@ -159,6 +167,7 @@ void WEART_C___API_Integration::MainPage::RenderRawSensorsData() {
 	ValuePalmRightTOF->Text = palmRightRawSensorData->GetLastSample()->TOF.ToString();
 
 	// Index LEFT
+	ValueIndexRightClosure->Text = indexRightThimbleTracking->GetClosure().ToString();
 	ValueIndexLeftAccX->Text = indexLeftRawSensorData->GetLastSample()->AccX.ToString();
 	ValueIndexLeftAccY->Text = indexLeftRawSensorData->GetLastSample()->AccY.ToString();
 	ValueIndexLeftAccZ->Text = indexLeftRawSensorData->GetLastSample()->AccZ.ToString();
@@ -169,7 +178,8 @@ void WEART_C___API_Integration::MainPage::RenderRawSensorsData() {
 
 	ValueIndexLeftTOF->Text = indexLeftRawSensorData->GetLastSample()->TOF.ToString();
 
-	// Thumb Right
+	// Thumb Left
+	ValueThumbRightClosure->Text = thumbRightThimbleTracking->GetClosure().ToString();
 	ValueThumbLeftAccX->Text = thumbLeftRawSensorData->GetLastSample()->AccX.ToString();
 	ValueThumbLeftAccY->Text = thumbLeftRawSensorData->GetLastSample()->AccY.ToString();
 	ValueThumbLeftAccZ->Text = thumbLeftRawSensorData->GetLastSample()->AccZ.ToString();
@@ -180,7 +190,8 @@ void WEART_C___API_Integration::MainPage::RenderRawSensorsData() {
 
 	ValueThumbLeftTOF->Text = thumbLeftRawSensorData->GetLastSample()->TOF.ToString();
 
-	// MIddle Right
+	// MIddle Left
+	ValueMiddleRightClosure->Text = middleRightThimbleTracking->GetClosure().ToString();
 	ValueMiddleLeftAccX->Text = middleLeftRawSensorData->GetLastSample()->AccX.ToString();
 	ValueMiddleLeftAccY->Text = middleLeftRawSensorData->GetLastSample()->AccY.ToString();
 	ValueMiddleLeftAccZ->Text = middleLeftRawSensorData->GetLastSample()->AccZ.ToString();
