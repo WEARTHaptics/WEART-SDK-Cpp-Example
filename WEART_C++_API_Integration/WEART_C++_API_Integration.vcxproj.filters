@@ -33,6 +33,12 @@
     <ClCompile Include="WEART_SDK\WeArtTrackingCalibration.cpp">
       <Filter>WEART_SDK</Filter>
     </ClCompile>
+    <ClCompile Include="WEART_SDK\WeArtMessages.cpp">
+      <Filter>WEART_SDK</Filter>
+    </ClCompile>
+    <ClCompile Include="WEART_SDK\WeArtMessageSerializer.cpp">
+      <Filter>WEART_SDK</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

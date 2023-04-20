@@ -234,6 +234,8 @@
     <ClCompile Include="TouchEffect.cpp" />
     <ClCompile Include="WEART_SDK\WeArtClient.cpp" />
     <ClCompile Include="WEART_SDK\WeArtHapticObject.cpp" />
+    <ClCompile Include="WEART_SDK\WeArtMessages.cpp" />
+    <ClCompile Include="WEART_SDK\WeArtMessageSerializer.cpp" />
     <ClCompile Include="WEART_SDK\WeArtRawSensorsData.cpp" />
     <ClCompile Include="WEART_SDK\WeArtThimbleTrackingObject.cpp" />
     <ClCompile Include="WEART_SDK\WeArtTrackingCalibration.cpp" />
