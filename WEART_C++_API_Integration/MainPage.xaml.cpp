@@ -123,100 +123,13 @@ void MainPage::TestTimer(Windows::System::Threading::ThreadPoolTimer^ timer)
 }
 
 void WEART_C___API_Integration::MainPage::RenderRawSensorsData() {
-
-	// Index Right
 	ValueIndexRightClosure->Text = indexRightThimbleTracking->GetClosure().ToString();
-	ValueIndexRightAccX->Text = indexRightRawSensorData->GetLastSample()->AccX.ToString();
-	ValueIndexRightAccY->Text = indexRightRawSensorData->GetLastSample()->AccY.ToString();
-	ValueIndexRightAccZ->Text = indexRightRawSensorData->GetLastSample()->AccZ.ToString();
-
-	ValueIndexRightGyroX->Text = indexRightRawSensorData->GetLastSample()->GyroX.ToString();
-	ValueIndexRightGyroY->Text = indexRightRawSensorData->GetLastSample()->GyroY.ToString();
-	ValueIndexRightGyroZ->Text = indexRightRawSensorData->GetLastSample()->GyroZ.ToString();
-
-	ValueIndexRightTOF->Text = indexRightRawSensorData->GetLastSample()->TOF.ToString();
-
-	// Thumb Right
 	ValueThumbRightClosure->Text = thumbRightThimbleTracking->GetClosure().ToString();
-	ValueThumbRightAccX->Text = thumbRightRawSensorData->GetLastSample()->AccX.ToString();
-	ValueThumbRightAccY->Text = thumbRightRawSensorData->GetLastSample()->AccY.ToString();
-	ValueThumbRightAccZ->Text = thumbRightRawSensorData->GetLastSample()->AccZ.ToString();
-
-	ValueThumbRightGyroX->Text = thumbRightRawSensorData->GetLastSample()->GyroX.ToString();
-	ValueThumbRightGyroY->Text = thumbRightRawSensorData->GetLastSample()->GyroY.ToString();
-	ValueThumbRightGyroZ->Text = thumbRightRawSensorData->GetLastSample()->GyroZ.ToString();
-
-	ValueThumbRightTOF->Text = thumbRightRawSensorData->GetLastSample()->TOF.ToString();
-
-	// MIddle Right
 	ValueMiddleRightClosure->Text = middleRightThimbleTracking->GetClosure().ToString();
-	ValueMiddleRightAccX->Text = middleRightRawSensorData->GetLastSample()->AccX.ToString();
-	ValueMiddleRightAccY->Text = middleRightRawSensorData->GetLastSample()->AccY.ToString();
-	ValueMiddleRightAccZ->Text = middleRightRawSensorData->GetLastSample()->AccZ.ToString();
-
-	ValueMiddleRightGyroX->Text = middleRightRawSensorData->GetLastSample()->GyroX.ToString();
-	ValueMiddleRightGyroY->Text = middleRightRawSensorData->GetLastSample()->GyroY.ToString();
-	ValueMiddleRightGyroZ->Text = middleRightRawSensorData->GetLastSample()->GyroZ.ToString();
-
-	ValueMiddleRightTOF->Text = middleRightRawSensorData->GetLastSample()->TOF.ToString();
-
-	// Palm Right
-	ValuePalmRightAccX->Text = palmRightRawSensorData->GetLastSample()->AccX.ToString();
-	ValuePalmRightAccY->Text = palmRightRawSensorData->GetLastSample()->AccY.ToString();
-	ValuePalmRightAccZ->Text = palmRightRawSensorData->GetLastSample()->AccZ.ToString();
-
-	ValuePalmRightGyroX->Text = palmRightRawSensorData->GetLastSample()->GyroX.ToString();
-	ValuePalmRightGyroY->Text = palmRightRawSensorData->GetLastSample()->GyroY.ToString();
-	ValuePalmRightGyroZ->Text = palmRightRawSensorData->GetLastSample()->GyroZ.ToString();
-
-	ValuePalmRightTOF->Text = palmRightRawSensorData->GetLastSample()->TOF.ToString();
-
-	// Index LEFT
 	ValueIndexRightClosure->Text = indexRightThimbleTracking->GetClosure().ToString();
-	ValueIndexLeftAccX->Text = indexLeftRawSensorData->GetLastSample()->AccX.ToString();
-	ValueIndexLeftAccY->Text = indexLeftRawSensorData->GetLastSample()->AccY.ToString();
-	ValueIndexLeftAccZ->Text = indexLeftRawSensorData->GetLastSample()->AccZ.ToString();
-
-	ValueIndexLeftGyroX->Text = indexLeftRawSensorData->GetLastSample()->GyroX.ToString();
-	ValueIndexLeftGyroY->Text = indexLeftRawSensorData->GetLastSample()->GyroY.ToString();
-	ValueIndexLeftGyroZ->Text = indexLeftRawSensorData->GetLastSample()->GyroZ.ToString();
-
-	ValueIndexLeftTOF->Text = indexLeftRawSensorData->GetLastSample()->TOF.ToString();
-
-	// Thumb Left
 	ValueThumbRightClosure->Text = thumbRightThimbleTracking->GetClosure().ToString();
-	ValueThumbLeftAccX->Text = thumbLeftRawSensorData->GetLastSample()->AccX.ToString();
-	ValueThumbLeftAccY->Text = thumbLeftRawSensorData->GetLastSample()->AccY.ToString();
-	ValueThumbLeftAccZ->Text = thumbLeftRawSensorData->GetLastSample()->AccZ.ToString();
-
-	ValueThumbLeftGyroX->Text = thumbLeftRawSensorData->GetLastSample()->GyroX.ToString();
-	ValueThumbLeftGyroY->Text = thumbLeftRawSensorData->GetLastSample()->GyroY.ToString();
-	ValueThumbLeftGyroZ->Text = thumbLeftRawSensorData->GetLastSample()->GyroZ.ToString();
-
-	ValueThumbLeftTOF->Text = thumbLeftRawSensorData->GetLastSample()->TOF.ToString();
-
-	// MIddle Left
 	ValueMiddleRightClosure->Text = middleRightThimbleTracking->GetClosure().ToString();
-	ValueMiddleLeftAccX->Text = middleLeftRawSensorData->GetLastSample()->AccX.ToString();
-	ValueMiddleLeftAccY->Text = middleLeftRawSensorData->GetLastSample()->AccY.ToString();
-	ValueMiddleLeftAccZ->Text = middleLeftRawSensorData->GetLastSample()->AccZ.ToString();
 
-	ValueMiddleLeftGyroX->Text = middleLeftRawSensorData->GetLastSample()->GyroX.ToString();
-	ValueMiddleLeftGyroY->Text = middleLeftRawSensorData->GetLastSample()->GyroY.ToString();
-	ValueMiddleLeftGyroZ->Text = middleLeftRawSensorData->GetLastSample()->GyroZ.ToString();
-
-	ValueMiddleLeftTOF->Text = middleLeftRawSensorData->GetLastSample()->TOF.ToString();
-
-	// Palm Left
-	ValuePalmLeftAccX->Text = palmLeftRawSensorData->GetLastSample()->AccX.ToString();
-	ValuePalmLeftAccY->Text = palmLeftRawSensorData->GetLastSample()->AccY.ToString();
-	ValuePalmLeftAccZ->Text = palmLeftRawSensorData->GetLastSample()->AccZ.ToString();
-
-	ValuePalmLeftGyroX->Text = palmLeftRawSensorData->GetLastSample()->GyroX.ToString();
-	ValuePalmLeftGyroY->Text = palmLeftRawSensorData->GetLastSample()->GyroY.ToString();
-	ValuePalmLeftGyroZ->Text = palmLeftRawSensorData->GetLastSample()->GyroZ.ToString();
-
-	ValuePalmLeftTOF->Text = palmLeftRawSensorData->GetLastSample()->TOF.ToString();
 }
 
 void WEART_C___API_Integration::MainPage::RenderCalibrationStatus() {
@@ -242,7 +155,7 @@ void WEART_C___API_Integration::MainPage::RenderCalibrationStatus() {
 
 void WEART_C___API_Integration::MainPage::ButtonStartClient_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-	weArtClient->Start();
+	weArtClient->Start(TrackingType::DEFAULT);
 }
 
 
