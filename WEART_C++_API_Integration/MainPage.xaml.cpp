@@ -125,11 +125,13 @@ void MainPage::TestTimer(Windows::System::Threading::ThreadPoolTimer^ timer)
 void WEART_C___API_Integration::MainPage::RenderRawSensorsData() {
 	ValueIndexRightClosure->Text = indexRightThimbleTracking->GetClosure().ToString();
 	ValueThumbRightClosure->Text = thumbRightThimbleTracking->GetClosure().ToString();
-	ValueMiddleRightClosure->Text = middleRightThimbleTracking->GetClosure().ToString();
-	ValueIndexRightClosure->Text = indexRightThimbleTracking->GetClosure().ToString();
-	ValueThumbRightClosure->Text = thumbRightThimbleTracking->GetClosure().ToString();
+	ValueThumbRightAbduction->Text = thumbRightThimbleTracking->GetAbduction().ToString();
 	ValueMiddleRightClosure->Text = middleRightThimbleTracking->GetClosure().ToString();
 
+	ValueIndexLeftClosure->Text = indexLeftThimbleTracking->GetClosure().ToString();
+	ValueThumbLeftClosure->Text = thumbLeftThimbleTracking->GetClosure().ToString();
+	ValueThumbLeftAbduction->Text = thumbLeftThimbleTracking->GetAbduction().ToString();
+	ValueMiddleLeftClosure->Text = middleLeftThimbleTracking->GetClosure().ToString();
 }
 
 void WEART_C___API_Integration::MainPage::RenderCalibrationStatus() {
@@ -155,7 +157,7 @@ void WEART_C___API_Integration::MainPage::RenderCalibrationStatus() {
 
 void WEART_C___API_Integration::MainPage::ButtonStartClient_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-	weArtClient->Start(TrackingType::DEFAULT);
+	weArtClient->Start();
 }
 
 
