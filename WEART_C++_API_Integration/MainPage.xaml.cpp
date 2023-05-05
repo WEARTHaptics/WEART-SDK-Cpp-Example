@@ -69,43 +69,6 @@ MainPage::MainPage()
 	middleLeftThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Left, ActuationPoint::Middle);
 	weArtClient->AddThimbleTracking(middleLeftThimbleTracking);
 
-
-	// RIGHT THIMBLE - RAW SENSORS DATA
-
-	// index thimble raw sensors data
-	indexRightRawSensorData = new WeArtRawSensorsData(HandSide::Right, ActuationPoint::Index);
-	weArtClient->AddThimbleRawSensors(indexRightRawSensorData);
-
-	//thumb thimble raw sensors data
-	thumbRightRawSensorData = new WeArtRawSensorsData(HandSide::Right, ActuationPoint::Thumb);
-	weArtClient->AddThimbleRawSensors(thumbRightRawSensorData);
-
-	//thumb thimble raw sensors data
-	middleRightRawSensorData = new WeArtRawSensorsData(HandSide::Right, ActuationPoint::Middle);
-	weArtClient->AddThimbleRawSensors(middleRightRawSensorData);
-
-	//palm raw sensors data
-	palmRightRawSensorData = new WeArtRawSensorsData(HandSide::Right, ActuationPoint::Palm);
-	weArtClient->AddThimbleRawSensors(palmRightRawSensorData);
-
-	// LEFT THIMBLE - RAW SENSORS DATA
-
-	// index thimble raw sensors data
-	indexLeftRawSensorData = new WeArtRawSensorsData(HandSide::Left, ActuationPoint::Index);
-	weArtClient->AddThimbleRawSensors(indexLeftRawSensorData);
-
-	//thumb thimble raw sensors data
-	thumbLeftRawSensorData = new WeArtRawSensorsData(HandSide::Left, ActuationPoint::Thumb);
-	weArtClient->AddThimbleRawSensors(thumbLeftRawSensorData);
-
-	//thumb thimble raw sensors data
-	middleLeftRawSensorData = new WeArtRawSensorsData(HandSide::Left, ActuationPoint::Middle);
-	weArtClient->AddThimbleRawSensors(middleLeftRawSensorData);
-
-	//palm raw sensors data
-	palmLeftRawSensorData = new WeArtRawSensorsData(HandSide::Left, ActuationPoint::Palm);
-	weArtClient->AddThimbleRawSensors(palmLeftRawSensorData);
-
 	// schedule reading closure value any 0.1secs
 	TimeSpan period;
 	period.Duration = 0.1 * 10000000; // 0.1sec

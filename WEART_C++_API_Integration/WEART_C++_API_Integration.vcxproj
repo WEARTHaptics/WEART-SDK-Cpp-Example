@@ -186,7 +186,6 @@
     <ClInclude Include="WEART_SDK\WeArtMessageListener.h" />
     <ClInclude Include="WEART_SDK\WeArtMessages.h" />
     <ClInclude Include="WEART_SDK\WeArtMessageSerializer.h" />
-    <ClInclude Include="WEART_SDK\WeArtRawSensorsData.h" />
     <ClInclude Include="WEART_SDK\WeArtTemperature.h" />
     <ClInclude Include="WEART_SDK\WeArtTexture.h" />
     <ClInclude Include="WEART_SDK\WeArtThimbleTrackingObject.h" />
@@ -236,7 +235,6 @@
     <ClCompile Include="WEART_SDK\WeArtHapticObject.cpp" />
     <ClCompile Include="WEART_SDK\WeArtMessages.cpp" />
     <ClCompile Include="WEART_SDK\WeArtMessageSerializer.cpp" />
-    <ClCompile Include="WEART_SDK\WeArtRawSensorsData.cpp" />
     <ClCompile Include="WEART_SDK\WeArtThimbleTrackingObject.cpp" />
     <ClCompile Include="WEART_SDK\WeArtTrackingCalibration.cpp" />
   </ItemGroup>
