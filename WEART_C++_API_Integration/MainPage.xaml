@@ -2,21 +2,21 @@
     x:Class="WEART_C___API_Integration.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:WEART_C___API_Integration"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Button x:Name="ButtonStartClient" Content="Start Client" Margin="100,80,0,0" VerticalAlignment="Top" Click="ButtonStartClient_Click"/>
-        <Button x:Name="ButtonStopClient" Content="Stop Client" Margin="230,80,0,0" VerticalAlignment="Top" Click="ButtonStopClient_Click"/>
-        <Button x:Name="ButtonStartCalibration" Content="Calibrate" Margin="360,80,0,0" VerticalAlignment="Top" Click="ButtonStartCalibration_Click"/>
+        <TextBlock x:Name="TextConnectionStatus" Margin="100,20,0,0" FontSize="16" FontWeight="Bold" Text="Not Connected" Foreground="Red"/>
+        <Button x:Name="ButtonStartClient" Content="Start Client" Margin="100,80,0,0" VerticalAlignment="Top" Click="ButtonStartClient_Click" IsEnabled="False"/>
+        <Button x:Name="ButtonStopClient" Content="Stop Client" Margin="230,80,0,0" VerticalAlignment="Top" Click="ButtonStopClient_Click" IsEnabled="False"/>
+        <Button x:Name="ButtonStartCalibration" Content="Calibrate" Margin="360,80,0,0" VerticalAlignment="Top" Click="ButtonStartCalibration_Click" IsEnabled="False"/>
         <TextBlock Text="" x:Name="TextCalibrationStatus" Margin="450,87,0,0" FontSize="16" FontWeight="Bold" VerticalAlignment="Top"/>
-        <Button x:Name="ButtonEffectSample1" Content="Add effect sample 1" Margin="100,150,0,0" VerticalAlignment="Top" Click="ButtonEffectSample1_Click"/>
-        <Button x:Name="ButtonEffectSample2" Content="Add effect sample 2" Margin="100,220,0,0" VerticalAlignment="Top" Click="ButtonEffectSample2_Click"/>
-        <Button x:Name="ButtonEffectSample3" Content="Add effect sample 3" Margin="100,290,0,0" VerticalAlignment="Top" Click="ButtonEffectSample3_Click"/>
-        <Button x:Name="ButtonRemoveEffect" Content="Remove Effect" Margin="100,360,0,0" VerticalAlignment="Top" Click="ButtonRemoveEffect_Click"/>
+        <Button x:Name="ButtonEffectSample1" Content="Add effect sample 1" Margin="100,150,0,0" VerticalAlignment="Top" Click="ButtonEffectSample1_Click" IsEnabled="False"/>
+        <Button x:Name="ButtonEffectSample2" Content="Add effect sample 2" Margin="100,220,0,0" VerticalAlignment="Top" Click="ButtonEffectSample2_Click" IsEnabled="False"/>
+        <Button x:Name="ButtonEffectSample3" Content="Add effect sample 3" Margin="100,290,0,0" VerticalAlignment="Top" Click="ButtonEffectSample3_Click" IsEnabled="False"/>
+        <Button x:Name="ButtonRemoveEffect" Content="Remove Effect" Margin="100,360,0,0" VerticalAlignment="Top" Click="ButtonRemoveEffect_Click" IsEnabled="False"/>
         <StackPanel Orientation="Vertical" Margin="300,150,0,0">
             <StackPanel Orientation="Horizontal" Height="40" Margin="0,0,0,0">
                 <TextBlock Text="Right Index Closure:" x:Name="LabelIndexRightClosure" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top"/>

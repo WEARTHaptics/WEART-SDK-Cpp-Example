@@ -27,9 +27,6 @@
     <ClCompile Include="WEART_SDK\WeArtThimbleTrackingObject.cpp">
       <Filter>WEART_SDK</Filter>
     </ClCompile>
-    <ClCompile Include="WEART_SDK\WeArtRawSensorsData.cpp">
-      <Filter>WEART_SDK</Filter>
-    </ClCompile>
     <ClCompile Include="WEART_SDK\WeArtTrackingCalibration.cpp">
       <Filter>WEART_SDK</Filter>
     </ClCompile>
@@ -77,9 +74,6 @@
       <Filter>WEART_SDK</Filter>
     </ClInclude>
     <ClInclude Include="WEART_SDK\WeArtTexture.h">
-      <Filter>WEART_SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="WEART_SDK\WeArtRawSensorsData.h">
       <Filter>WEART_SDK</Filter>
     </ClInclude>
     <ClInclude Include="WEART_SDK\WeArtMessageListener.h">

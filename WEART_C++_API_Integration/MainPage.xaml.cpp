@@ -21,13 +21,16 @@ using namespace Windows::UI::Xaml::Navigation;
 using namespace Windows::System::Threading;
 using namespace Windows::UI::Core;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
+// The Blank Page dispatchItem template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 MainPage::MainPage()
 {
 	InitializeComponent();
 	
-	weArtClient = new WeArtClient("127.0.0.1", WeArtConstants::DEFAULT_TCP_PORT); //IP ADDRESS and PORT of Middleware PC
+	weArtClient = new WeArtClient("127.0.0.1", WeArtConstants::DEFAULT_TCP_PORT); //IP ADDRESS and PORT of Middleware PC	
+	
+	// Add connection status callback to get notified when the client connects and disconnects from the middleware
+	weArtClient->AddConnectionStatusCallback([this](bool connected) { OnConnectionStatusChanged(connected); });
 
 	// create haptic object to manage actuation on Righ hand and Index Thimble
 	hapticObject = new WeArtHapticObject(weArtClient);
@@ -66,50 +69,21 @@ MainPage::MainPage()
 	middleLeftThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Left, ActuationPoint::Middle);
 	weArtClient->AddThimbleTracking(middleLeftThimbleTracking);
 
-
-	// RIGHT THIMBLE - RAW SENSORS DATA
-
-	// index thimble raw sensors data
-	indexRightRawSensorData = new WeArtRawSensorsData(HandSide::Right, ActuationPoint::Index);
-	weArtClient->AddThimbleRawSensors(indexRightRawSensorData);
-
-	//thumb thimble raw sensors data
-	thumbRightRawSensorData = new WeArtRawSensorsData(HandSide::Right, ActuationPoint::Thumb);
-	weArtClient->AddThimbleRawSensors(thumbRightRawSensorData);
-
-	//thumb thimble raw sensors data
-	middleRightRawSensorData = new WeArtRawSensorsData(HandSide::Right, ActuationPoint::Middle);
-	weArtClient->AddThimbleRawSensors(middleRightRawSensorData);
-
-	//palm raw sensors data
-	palmRightRawSensorData = new WeArtRawSensorsData(HandSide::Right, ActuationPoint::Palm);
-	weArtClient->AddThimbleRawSensors(palmRightRawSensorData);
-
-	// LEFT THIMBLE - RAW SENSORS DATA
-
-	// index thimble raw sensors data
-	indexLeftRawSensorData = new WeArtRawSensorsData(HandSide::Left, ActuationPoint::Index);
-	weArtClient->AddThimbleRawSensors(indexLeftRawSensorData);
-
-	//thumb thimble raw sensors data
-	thumbLeftRawSensorData = new WeArtRawSensorsData(HandSide::Left, ActuationPoint::Thumb);
-	weArtClient->AddThimbleRawSensors(thumbLeftRawSensorData);
-
-	//thumb thimble raw sensors data
-	middleLeftRawSensorData = new WeArtRawSensorsData(HandSide::Left, ActuationPoint::Middle);
-	weArtClient->AddThimbleRawSensors(middleLeftRawSensorData);
-
-	//palm raw sensors data
-	palmLeftRawSensorData = new WeArtRawSensorsData(HandSide::Left, ActuationPoint::Palm);
-	weArtClient->AddThimbleRawSensors(palmLeftRawSensorData);
-
 	// schedule reading closure value any 0.1secs
 	TimeSpan period;
 	period.Duration = 0.1 * 10000000; // 0.1sec
 	ThreadPoolTimer::CreatePeriodicTimer(ref new TimerElapsedHandler(this, &MainPage::TestTimer), period);
 
-	// run socket communication 
-	weArtClient->Run();
+	// run socket communication
+	Connect();
+}
+
+void WEART_C___API_Integration::MainPage::Connect() {
+	auto workItem = ref new WorkItemHandler([this](IAsyncAction^ workItem) {
+		while (!weArtClient->IsConnected())
+			weArtClient->Run();
+		});
+	ThreadPool::RunAsync(workItem);
 }
 
 void MainPage::TestTimer(Windows::System::Threading::ThreadPoolTimer^ timer)
@@ -136,7 +110,8 @@ void WEART_C___API_Integration::MainPage::RenderRawSensorsData() {
 
 void WEART_C___API_Integration::MainPage::RenderCalibrationStatus() {
 	if (!calibrating) {
-		ButtonStartCalibration->IsEnabled = true;
+		if(weArtClient->IsConnected())
+			ButtonStartCalibration->IsEnabled = true;
 		return;
 	}
 
@@ -151,6 +126,28 @@ void WEART_C___API_Integration::MainPage::RenderCalibrationStatus() {
 		ButtonStartCalibration->IsEnabled = true;
 		calibrating = false;
 	}
+}
+
+void WEART_C___API_Integration::MainPage::OnConnectionStatusChanged(bool connected) {
+	Dispatcher->RunAsync(CoreDispatcherPriority::High,
+		ref new DispatchedHandler([this, connected]() {
+			TextConnectionStatus->Text = connected ? "Connected" : "Not Connected";
+			TextConnectionStatus->Foreground = ref new SolidColorBrush(connected ? Windows::UI::Colors::Green : Windows::UI::Colors::Red);
+
+			ButtonStartClient->IsEnabled = connected;
+			ButtonStopClient->IsEnabled = connected;
+
+			ButtonStartCalibration->IsEnabled = connected;
+
+			ButtonEffectSample1->IsEnabled = connected;
+			ButtonEffectSample2->IsEnabled = connected;
+			ButtonEffectSample3->IsEnabled = connected;
+			ButtonRemoveEffect->IsEnabled = connected;
+
+			}));
+
+	if (!connected)
+		Connect();
 }
 
 
@@ -170,7 +167,6 @@ void WEART_C___API_Integration::MainPage::ButtonStartCalibration_Click(Platform:
 {
 	calibrating = true;
 	weArtClient->StartCalibration();
-	ButtonStartCalibration->IsEnabled = false;
 }
 
 
