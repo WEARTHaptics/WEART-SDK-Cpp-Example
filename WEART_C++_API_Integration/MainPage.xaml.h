@@ -32,9 +32,13 @@ namespace WEART_C___API_Integration
 		void ButtonEffectSample3_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 		void ButtonRemoveEffect_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 
+		void Connect();
 		void TestTimer(Windows::System::Threading::ThreadPoolTimer^ timer);
+
 		void RenderRawSensorsData();
 		void RenderCalibrationStatus();
+
+		void OnConnectionStatusChanged(bool connected);
 
 		WeArtClient* weArtClient;
 		WeArtHapticObject* hapticObject;
