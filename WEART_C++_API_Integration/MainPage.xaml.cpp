@@ -27,7 +27,7 @@ MainPage::MainPage()
 {
 	InitializeComponent();
 	
-	weArtClient = new WeArtClient("127.0.0.1", WeArtConstants::DEFAULT_TCP_PORT); //IP ADDRESS and PORT of Middleware PC	
+	weArtClient = new WeArtClient(WeArtConstants::DEFAULT_IP_ADDRESS, WeArtConstants::DEFAULT_TCP_PORT); //IP ADDRESS and PORT of Middleware PC	
 	
 	// Add connection status callback to get notified when the client connects and disconnects from the middleware
 	weArtClient->AddConnectionStatusCallback([this](bool connected) { OnConnectionStatusChanged(connected); });

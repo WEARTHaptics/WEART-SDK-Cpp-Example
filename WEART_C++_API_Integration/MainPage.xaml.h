@@ -10,7 +10,6 @@
 #include <WEART_SDK/WeArtHapticObject.h>
 #include <WEART_SDK/WeArtThimbleTrackingObject.h>
 #include <WEART_SDK/WeArtTrackingCalibration.h>
-#include "TouchEffect.h"
 
 namespace WEART_C___API_Integration
 {
