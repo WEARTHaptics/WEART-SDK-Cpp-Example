@@ -5,6 +5,8 @@
 
 #include "pch.h"
 #include "MainPage.xaml.h"
+#include <locale>
+#include <codecvt>
 
 using namespace WEART_C___API_Integration;
 
@@ -51,23 +53,23 @@ MainPage::MainPage()
 	hapticObject->AddEffect(touchEffect);
 
 	// Add all thimble tracking objects for closure
-	indexRightThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Right, ActuationPoint::Index);
-	weArtClient->AddThimbleTracking(indexRightThimbleTracking);
+	indexRightThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Right, ActuationPoint::Index); weArtClient->AddThimbleTracking(indexRightThimbleTracking);
+	thumbRightThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Right, ActuationPoint::Thumb); weArtClient->AddThimbleTracking(thumbRightThimbleTracking);
+	middleRightThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Right, ActuationPoint::Middle); weArtClient->AddThimbleTracking(middleRightThimbleTracking);
 
-	thumbRightThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Right, ActuationPoint::Thumb);
-	weArtClient->AddThimbleTracking(thumbRightThimbleTracking);
+	indexLeftThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Left, ActuationPoint::Index); weArtClient->AddThimbleTracking(indexLeftThimbleTracking);
+	thumbLeftThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Left, ActuationPoint::Thumb); weArtClient->AddThimbleTracking(thumbLeftThimbleTracking);
+	middleLeftThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Left, ActuationPoint::Middle); weArtClient->AddThimbleTracking(middleLeftThimbleTracking);
 
-	middleRightThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Right, ActuationPoint::Middle);
-	weArtClient->AddThimbleTracking(middleRightThimbleTracking);
-
-	indexLeftThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Left, ActuationPoint::Index);
-	weArtClient->AddThimbleTracking(indexLeftThimbleTracking);
-
-	thumbLeftThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Left, ActuationPoint::Thumb);
-	weArtClient->AddThimbleTracking(thumbLeftThimbleTracking);
-
-	middleLeftThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Left, ActuationPoint::Middle);
-	weArtClient->AddThimbleTracking(middleLeftThimbleTracking);
+	// Add all sensor data trackers
+	AddSensor("LEFT", "INDEX");
+	AddSensor("LEFT", "MIDDLE");
+	AddSensor("LEFT", "THUMB");
+	AddSensor("LEFT", "PALM");
+	AddSensor("RIGHT", "INDEX");
+	AddSensor("RIGHT", "MIDDLE");
+	AddSensor("RIGHT", "THUMB");
+	AddSensor("RIGHT", "PALM");
 
 	// schedule reading closure value any 0.1secs
 	TimeSpan period;
@@ -78,9 +80,9 @@ MainPage::MainPage()
 	Connect();
 }
 
-void WEART_C___API_Integration::MainPage::Connect() {
+void MainPage::Connect() {
 	auto workItem = ref new WorkItemHandler([this](IAsyncAction^ workItem) {
-		while (!weArtClient->IsConnected())
+	 	while (!weArtClient->IsConnected())
 			weArtClient->Run();
 		});
 	ThreadPool::RunAsync(workItem);
@@ -92,11 +94,12 @@ void MainPage::TestTimer(Windows::System::Threading::ThreadPoolTimer^ timer)
 		ref new DispatchedHandler([this]()
 			{
 				RenderCalibrationStatus();
+				RenderClosureAbduction();
 				RenderRawSensorsData();
 			}));
 }
 
-void WEART_C___API_Integration::MainPage::RenderRawSensorsData() {
+void MainPage::RenderClosureAbduction() {
 	ValueIndexRightClosure->Text = indexRightThimbleTracking->GetClosure().ToString();
 	ValueThumbRightClosure->Text = thumbRightThimbleTracking->GetClosure().ToString();
 	ValueThumbRightAbduction->Text = thumbRightThimbleTracking->GetAbduction().ToString();
@@ -108,7 +111,43 @@ void WEART_C___API_Integration::MainPage::RenderRawSensorsData() {
 	ValueMiddleLeftClosure->Text = middleLeftThimbleTracking->GetClosure().ToString();
 }
 
-void WEART_C___API_Integration::MainPage::RenderCalibrationStatus() {
+void MainPage::RenderRawSensorsData() {
+	
+	// Find right sensor
+	using convert_typeX = std::codecvt_utf8<wchar_t>;
+	std::wstring_convert<convert_typeX, wchar_t> converterX;
+
+	auto handSideItem = safe_cast<ComboBoxItem^>(HandSideChoice->SelectedItem);
+	if (handSideItem == nullptr) return;
+	auto handSideWString = handSideItem->Content->ToString();
+	if (handSideWString->Length() == 0) return;
+	std::string handSide = converterX.to_bytes(handSideWString->Data());
+
+	auto apItem = safe_cast<ComboBoxItem^>(ActuationPointChoice->SelectedItem);
+	if (apItem  == nullptr) return;
+	auto actuationPointWString = apItem->Content->ToString();
+	if (actuationPointWString->Length() == 0) return;
+	std::string actuationPoint = converterX.to_bytes(actuationPointWString->Data());
+	
+	auto key = std::make_pair(handSide, actuationPoint);
+	if (sensors.find(key) == sensors.end())
+		return;
+	WeArtRawSensorsData* sensor = sensors[key];
+
+	// Print data
+	SensorData data = sensor->GetLastSample();
+	Acc_X->Text = data.accelerometer.x.ToString();
+	Acc_Y->Text = data.accelerometer.y.ToString();
+	Acc_Z->Text = data.accelerometer.z.ToString();
+
+	Gyro_X->Text = data.gyroscope.x.ToString();
+	Gyro_Y->Text = data.gyroscope.y.ToString();
+	Gyro_Z->Text = data.gyroscope.z.ToString();
+
+	TimeOfFlight->Text = data.timeOfFlight.distance.ToString();
+}
+
+void MainPage::RenderCalibrationStatus() {
 	if (!calibrating) {
 		if(weArtClient->IsConnected())
 			ButtonStartCalibration->IsEnabled = true;
@@ -128,7 +167,7 @@ void WEART_C___API_Integration::MainPage::RenderCalibrationStatus() {
 	}
 }
 
-void WEART_C___API_Integration::MainPage::OnConnectionStatusChanged(bool connected) {
+void MainPage::OnConnectionStatusChanged(bool connected) {
 	Dispatcher->RunAsync(CoreDispatcherPriority::High,
 		ref new DispatchedHandler([this, connected]() {
 			TextConnectionStatus->Text = connected ? "Connected" : "Not Connected";
@@ -138,6 +177,8 @@ void WEART_C___API_Integration::MainPage::OnConnectionStatusChanged(bool connect
 			ButtonStopClient->IsEnabled = connected;
 
 			ButtonStartCalibration->IsEnabled = connected;
+			ButtonStartRawData->IsEnabled = connected;
+			ButtonStopRawData->IsEnabled = connected;
 
 			ButtonEffectSample1->IsEnabled = connected;
 			ButtonEffectSample2->IsEnabled = connected;
@@ -152,25 +193,34 @@ void WEART_C___API_Integration::MainPage::OnConnectionStatusChanged(bool connect
 
 
 
-void WEART_C___API_Integration::MainPage::ButtonStartClient_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+void MainPage::ButtonStartClient_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
 	weArtClient->Start();
 }
 
 
-void WEART_C___API_Integration::MainPage::ButtonStopClient_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+void MainPage::ButtonStopClient_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
 	weArtClient->Stop();
 }
 
-void WEART_C___API_Integration::MainPage::ButtonStartCalibration_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+void MainPage::ButtonStartCalibration_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
 	calibrating = true;
 	weArtClient->StartCalibration();
 }
 
+void MainPage::ButtonStartRawData_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+	weArtClient->StartRawData();
+}
 
-void WEART_C___API_Integration::MainPage::ButtonEffectSample1_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+void MainPage::ButtonStopRawData_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+	weArtClient->StopRawData();
+}
+
+void MainPage::ButtonEffectSample1_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
 	// define temperature
 	WeArtTemperature temperature = WeArtTemperature();
@@ -196,7 +246,7 @@ void WEART_C___API_Integration::MainPage::ButtonEffectSample1_Click(Platform::Ob
 }
 
 
-void WEART_C___API_Integration::MainPage::ButtonEffectSample2_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+void MainPage::ButtonEffectSample2_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
 	// define temperature
 	WeArtTemperature temperature = WeArtTemperature();
@@ -222,7 +272,7 @@ void WEART_C___API_Integration::MainPage::ButtonEffectSample2_Click(Platform::Ob
 }
 
 
-void WEART_C___API_Integration::MainPage::ButtonEffectSample3_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+void MainPage::ButtonEffectSample3_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
 	// define temperature
 	WeArtTemperature temperature = WeArtTemperature();
@@ -250,8 +300,20 @@ void WEART_C___API_Integration::MainPage::ButtonEffectSample3_Click(Platform::Ob
 }
 
 
-void WEART_C___API_Integration::MainPage::ButtonRemoveEffect_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+void MainPage::ButtonRemoveEffect_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
 	//remove effect from thimble actuations
 	hapticObject->RemoveEffect(touchEffect);
+}
+
+
+
+void MainPage::AddSensor(std::string handSide, std::string actuationPoint) {
+
+	HandSide hs = StringToHandside(handSide);
+	ActuationPoint ap = StringToActuationPoint(actuationPoint);
+
+	auto sensor = new WeArtRawSensorsData(hs, ap);
+	sensors[std::make_pair(handSide, actuationPoint)] = sensor;
+	weArtClient->AddMessageListener(sensor);
 }

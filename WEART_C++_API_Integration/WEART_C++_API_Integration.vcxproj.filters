@@ -17,7 +17,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="TouchEffect.cpp" />
     <ClCompile Include="WEART_SDK\WeArtClient.cpp">
       <Filter>WEART_SDK</Filter>
     </ClCompile>
@@ -36,10 +35,11 @@
     <ClCompile Include="WEART_SDK\WeArtMessageSerializer.cpp">
       <Filter>WEART_SDK</Filter>
     </ClCompile>
+    <ClCompile Include="WEART_SDK\WeArtEffect.cpp" />
+    <ClCompile Include="WEART_SDK\WeArtRawSensorsData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="TouchEffect.h" />
     <ClInclude Include="WEART_SDK\WeArtThimbleTrackingObject.h">
       <Filter>WEART_SDK</Filter>
     </ClInclude>
@@ -82,6 +82,8 @@
     <ClInclude Include="WEART_SDK\WeArtTrackingCalibration.h">
       <Filter>WEART_SDK</Filter>
     </ClInclude>
+    <ClInclude Include="WEART_SDK\WeArtRawSensorsData.h" />
+    <ClInclude Include="WEART_SDK\nlohmann\json.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png">
