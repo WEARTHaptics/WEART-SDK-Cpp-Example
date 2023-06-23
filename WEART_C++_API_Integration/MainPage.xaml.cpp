@@ -135,16 +135,18 @@ void MainPage::RenderRawSensorsData() {
 	WeArtRawSensorsData* sensor = sensors[key];
 
 	// Print data
-	SensorData data = sensor->GetLastSample();
-	Acc_X->Text = data.accelerometer.x.ToString();
-	Acc_Y->Text = data.accelerometer.y.ToString();
-	Acc_Z->Text = data.accelerometer.z.ToString();
+	WeArtRawSensorsData::Sample sample = sensor->GetLastSample();
+	Acc_X->Text = sample.data.accelerometer.x.ToString();
+	Acc_Y->Text = sample.data.accelerometer.y.ToString();
+	Acc_Z->Text = sample.data.accelerometer.z.ToString();
 
-	Gyro_X->Text = data.gyroscope.x.ToString();
-	Gyro_Y->Text = data.gyroscope.y.ToString();
-	Gyro_Z->Text = data.gyroscope.z.ToString();
+	Gyro_X->Text = sample.data.gyroscope.x.ToString();
+	Gyro_Y->Text = sample.data.gyroscope.y.ToString();
+	Gyro_Z->Text = sample.data.gyroscope.z.ToString();
 
-	TimeOfFlight->Text = data.timeOfFlight.distance.ToString();
+	TimeOfFlight->Text = sample.data.timeOfFlight.distance.ToString();
+
+	LastSampleTime->Text = sample.timestamp.ToString();
 }
 
 void MainPage::RenderCalibrationStatus() {

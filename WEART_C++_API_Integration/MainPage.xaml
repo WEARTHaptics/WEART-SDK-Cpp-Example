@@ -78,6 +78,13 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Height="40" Margin="0,0,0,0" >
+                <TextBlock FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <Run Text="Time: "/>
+                    <Run x:Name="LastSampleTime" Text=""/>
+                </TextBlock>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Height="40" Margin="0,0,0,0" >
                 <TextBlock Text="Accelerometer (x,y,z):" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 <TextBlock x:Name="Accelerometer" FontSize="16" FontWeight="Bold" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <Run x:Name="Acc_X">0.00000</Run>
