@@ -60,5 +60,6 @@ namespace WEART_C___API_Integration
 		// Raw Sensors
 		std::map < std::pair < std::string, std::string > , WeArtRawSensorsData* > sensors;
 		void AddSensor(std::string handSide, std::string actuationPoint);
+		std::pair<std::string, std::string> GetSensorChoice();
 	};
 }

@@ -111,30 +111,14 @@ void MainPage::RenderClosureAbduction() {
 	ValueMiddleLeftClosure->Text = middleLeftThimbleTracking->GetClosure().ToString();
 }
 
-void MainPage::RenderRawSensorsData() {
-	
-	// Find right sensor
-	using convert_typeX = std::codecvt_utf8<wchar_t>;
-	std::wstring_convert<convert_typeX, wchar_t> converterX;
-
-	auto handSideItem = safe_cast<ComboBoxItem^>(HandSideChoice->SelectedItem);
-	if (handSideItem == nullptr) return;
-	auto handSideWString = handSideItem->Content->ToString();
-	if (handSideWString->Length() == 0) return;
-	std::string handSide = converterX.to_bytes(handSideWString->Data());
-
-	auto apItem = safe_cast<ComboBoxItem^>(ActuationPointChoice->SelectedItem);
-	if (apItem  == nullptr) return;
-	auto actuationPointWString = apItem->Content->ToString();
-	if (actuationPointWString->Length() == 0) return;
-	std::string actuationPoint = converterX.to_bytes(actuationPointWString->Data());
-	
-	auto key = std::make_pair(handSide, actuationPoint);
-	if (sensors.find(key) == sensors.end())
+void MainPage::RenderRawSensorsData() {	
+	// Get chosen sensor
+	std::pair<std::string, std::string> sensorChoice = GetSensorChoice();
+	if (sensors.find(sensorChoice) == sensors.end())
 		return;
-	WeArtRawSensorsData* sensor = sensors[key];
+	WeArtRawSensorsData* sensor = sensors[sensorChoice];
 
-	// Print data
+	// Render raw data to screen
 	WeArtRawSensorsData::Sample sample = sensor->GetLastSample();
 	Acc_X->Text = sample.data.accelerometer.x.ToString();
 	Acc_Y->Text = sample.data.accelerometer.y.ToString();
@@ -147,6 +131,27 @@ void MainPage::RenderRawSensorsData() {
 	TimeOfFlight->Text = sample.data.timeOfFlight.distance.ToString();
 
 	LastSampleTime->Text = sample.timestamp.ToString();
+}
+
+std::pair<std::string, std::string> WEART_C___API_Integration::MainPage::GetSensorChoice()
+{
+	// Find right sensor
+	using convert_typeX = std::codecvt_utf8<wchar_t>;
+	std::wstring_convert<convert_typeX, wchar_t> converterX;
+
+	auto handSideItem = safe_cast<ComboBoxItem^>(HandSideChoice->SelectedItem);
+	if (handSideItem == nullptr) return std::make_pair("", "");
+	auto handSideWString = handSideItem->Content->ToString();
+	if (handSideWString->Length() == 0) return std::make_pair("", "");
+	std::string handSide = converterX.to_bytes(handSideWString->Data());
+
+	auto apItem = safe_cast<ComboBoxItem^>(ActuationPointChoice->SelectedItem);
+	if (apItem == nullptr) return std::make_pair("", "");
+	auto actuationPointWString = apItem->Content->ToString();
+	if (actuationPointWString->Length() == 0) return std::make_pair("", "");
+	std::string actuationPoint = converterX.to_bytes(actuationPointWString->Data());
+
+	return std::make_pair(handSide, actuationPoint);
 }
 
 void MainPage::RenderCalibrationStatus() {
