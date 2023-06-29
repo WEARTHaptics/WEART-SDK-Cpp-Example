@@ -9,15 +9,17 @@
 
     <Grid>
         <TextBlock x:Name="TextConnectionStatus" Margin="100,20,0,0" FontSize="16" FontWeight="Bold" Text="Not Connected" Foreground="Red"/>
-        <Button x:Name="ButtonStartClient" Content="Start Client" Margin="100,80,0,0" VerticalAlignment="Top" Click="ButtonStartClient_Click" IsEnabled="False"/>
-        <Button x:Name="ButtonStopClient" Content="Stop Client" Margin="230,80,0,0" VerticalAlignment="Top" Click="ButtonStopClient_Click" IsEnabled="False"/>
-        <Button x:Name="ButtonStartCalibration" Content="Calibrate" Margin="360,80,0,0" VerticalAlignment="Top" Click="ButtonStartCalibration_Click" IsEnabled="False"/>
-        <TextBlock Text="" x:Name="TextCalibrationStatus" Margin="450,87,0,0" FontSize="16" FontWeight="Bold" VerticalAlignment="Top"/>
-        <Button x:Name="ButtonEffectSample1" Content="Add effect sample 1" Margin="100,150,0,0" VerticalAlignment="Top" Click="ButtonEffectSample1_Click" IsEnabled="False"/>
+        <Button x:Name="ButtonStartClient" Content="Start Client" Margin="100,60,0,0" VerticalAlignment="Top" Click="ButtonStartClient_Click" IsEnabled="False"/>
+        <Button x:Name="ButtonStopClient" Content="Stop Client" Margin="230,60,0,0" VerticalAlignment="Top" Click="ButtonStopClient_Click" IsEnabled="False"/>
+        <Button x:Name="ButtonStartCalibration" Content="Calibrate" Margin="360,60,0,0" VerticalAlignment="Top" Click="ButtonStartCalibration_Click" IsEnabled="False"/>
+        <TextBlock Text="" x:Name="TextCalibrationStatus" Margin="450,67,0,0" FontSize="16" FontWeight="Bold" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300"/>
+
+        <Button x:Name="ButtonEffectSample1" Content="Add effect sample 1" Margin="100,170,0,0" VerticalAlignment="Top" Click="ButtonEffectSample1_Click" IsEnabled="False"/>
         <Button x:Name="ButtonEffectSample2" Content="Add effect sample 2" Margin="100,220,0,0" VerticalAlignment="Top" Click="ButtonEffectSample2_Click" IsEnabled="False"/>
-        <Button x:Name="ButtonEffectSample3" Content="Add effect sample 3" Margin="100,290,0,0" VerticalAlignment="Top" Click="ButtonEffectSample3_Click" IsEnabled="False"/>
-        <Button x:Name="ButtonRemoveEffect" Content="Remove Effect" Margin="100,360,0,0" VerticalAlignment="Top" Click="ButtonRemoveEffect_Click" IsEnabled="False"/>
-        <StackPanel Orientation="Vertical" Margin="300,150,0,0">
+        <Button x:Name="ButtonEffectSample3" Content="Add effect sample 3" Margin="100,270,0,0" VerticalAlignment="Top" Click="ButtonEffectSample3_Click" IsEnabled="False"/>
+        <Button x:Name="ButtonRemoveEffect" Content="Remove Effect" Margin="100,320,0,0" VerticalAlignment="Top" Click="ButtonRemoveEffect_Click" IsEnabled="False"/>
+
+        <StackPanel Orientation="Vertical" Margin="300,170,0,0" HorizontalAlignment="Left" Width="400" VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal" Height="40" Margin="0,0,0,0">
                 <TextBlock Text="Right Index Closure:" x:Name="LabelIndexRightClosure" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                 <TextBlock Text="0.0" x:Name="ValueIndexRightClosure" FontSize="16" FontWeight="Bold" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
@@ -51,6 +53,62 @@
             <StackPanel Orientation="Horizontal" Height="40" Margin="0,0,0,0">
                 <TextBlock Text="Left Middle Closure:" x:Name="LabelMiddleLeftClosure" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                 <TextBlock Text="0.0" x:Name="ValueMiddleLeftClosure" FontSize="16" FontWeight="Bold" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Margin="650,170,0,0" HorizontalAlignment="Left" Width="400" VerticalAlignment="Top">
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,10" Spacing="10">
+                <Button x:Name="ButtonStartRawData" Content="Start Raw Data" VerticalAlignment="Top" Click="ButtonStartRawData_Click" IsEnabled="False"/>
+                <Button x:Name="ButtonStopRawData" Content="Stop Raw Data" VerticalAlignment="Top" Click="ButtonStopRawData_Click" IsEnabled="False"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Hand:" Margin="10,0,10,0" VerticalAlignment="Center"/>
+                <ComboBox x:Name="HandSideChoice" Width="120" SelectedIndex="0">
+                    <ComboBoxItem>RIGHT</ComboBoxItem>
+                    <ComboBoxItem>LEFT</ComboBoxItem>
+                </ComboBox>
+                <TextBlock Text="Thimble:" Margin="10,0,10,0" VerticalAlignment="Center"/>
+                <ComboBox x:Name="ActuationPointChoice" Width="140" SelectedIndex="0">
+                    <ComboBoxItem>INDEX</ComboBoxItem>
+                    <ComboBoxItem>THUMB</ComboBoxItem>
+                    <ComboBoxItem>MIDDLE</ComboBoxItem>
+                    <ComboBoxItem>PALM</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Height="40" Margin="0,0,0,0" >
+                <TextBlock FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <Run Text="Time: "/>
+                    <Run x:Name="LastSampleTime" Text=""/>
+                </TextBlock>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Height="40" Margin="0,0,0,0" >
+                <TextBlock Text="Accelerometer (x,y,z):" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock x:Name="Accelerometer" FontSize="16" FontWeight="Bold" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <Run x:Name="Acc_X">0.00000</Run>
+                    <Run>,</Run>
+                    <Run x:Name="Acc_Y">0.00000</Run>
+                    <Run>,</Run>
+                    <Run x:Name="Acc_Z">0.00000</Run>
+                </TextBlock>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Height="40" Margin="0,0,0,0" >
+                <TextBlock Text="Gyroscope (x,y,z):" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock x:Name="Gyroscope" FontSize="16" FontWeight="Bold" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <Run x:Name="Gyro_X">0.00000</Run>
+                    <Run>,</Run>
+                    <Run x:Name="Gyro_Y">0.00000</Run>
+                    <Run>,</Run>
+                    <Run x:Name="Gyro_Z">0.00000</Run>
+                </TextBlock>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Height="40" Margin="0,0,0,0" >
+                <TextBlock Text="ToF Distance:" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Text="0" x:Name="TimeOfFlight" FontSize="16" FontWeight="Bold" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             </StackPanel>
         </StackPanel>
     </Grid>
