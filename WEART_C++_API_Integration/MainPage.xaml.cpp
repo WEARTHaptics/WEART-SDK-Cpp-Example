@@ -36,8 +36,8 @@ MainPage::MainPage()
 
 	// create haptic object to manage actuation on Righ hand and Index Thimble
 	hapticObject = new WeArtHapticObject(weArtClient);
-	hapticObject->handSideFlag = HandSide::Right;
-	hapticObject->actuationPointFlag = ActuationPoint::Index;
+	hapticObject->handSideFlag = (int)HandSide::Right;
+	hapticObject->actuationPointFlag = (int)ActuationPoint::Index;
 
 	//define feeling properties to create an effect
 	WeArtTemperature temperature = WeArtTemperature();
@@ -74,6 +74,8 @@ MainPage::MainPage()
 	// Add Middleware status listener
 	mwListener = new MiddlewareStatusListener();
 	weArtClient->AddMessageListener(mwListener);
+
+
 
 	// schedule reading closure value any 0.1secs
 	TimeSpan period;
@@ -192,28 +194,34 @@ void WEART_C___API_Integration::MainPage::RenderMiddlewareStatus()
 	MiddlewareStatusData mwStatus = mwListener->lastStatus();
 	bool isRunning = mwStatus.status == MiddlewareStatus::STARTING || mwStatus.status == MiddlewareStatus::RUNNING;
 	bool connected = weArtClient->IsConnected();
-	MwStatusPanel->Visibility = connected ? Windows::UI::Xaml::Visibility::Visible : Windows::UI::Xaml::Visibility::Collapsed;
-
-	MiddlewareStatus_Text->Text = stdToPlatformString(MiddlewareStatusToString(mwStatus.status));
-	bool isGreen = isRunning || mwStatus.status == MiddlewareStatus::IDLE;
 	
+	// Update middleware status block
+	if(!connected)
+		MiddlewareStatus_Text->Text = "NONE";
+	else
+		MiddlewareStatus_Text->Text = stdToPlatformString(MiddlewareStatusToString(mwStatus.status));
+	
+	bool isGreen = isRunning || mwStatus.status == MiddlewareStatus::IDLE;
 	bool isYellow = mwStatus.status == MiddlewareStatus::STOPPING
 		|| mwStatus.status == MiddlewareStatus::CALIBRATION
 		|| mwStatus.status == MiddlewareStatus::UPLOADING_TEXTURES
 		|| mwStatus.status == MiddlewareStatus::CONNECTING_DEVICE;
+	bool isRed = !connected || mwStatus.status == MiddlewareStatus::DISCONNECTED;
 
-	bool isRed = mwStatus.status == MiddlewareStatus::DISCONNECTED;
-
-	Windows::UI::Color color = isGreen ? Windows::UI::Colors::Green : (isYellow ? Windows::UI::Colors::Orange : Windows::UI::Colors::Red);
+	Windows::UI::Color color = isRed ? Windows::UI::Colors::Red : (isYellow ? Windows::UI::Colors::Orange : Windows::UI::Colors::Green);
 	MiddlewareStatus_Text->Foreground = ref new SolidColorBrush(color);
-
-	ErrorTextBlock->Visibility = mwStatus.statusCode != 0 ? Windows::UI::Xaml::Visibility::Visible : Windows::UI::Xaml::Visibility::Collapsed;
-	MwStatusCode->Text = mwStatus.statusCode.ToString();
-	MwStatusCodeDesc->Text = stdToPlatformString(mwStatus.errorDesc);
-
+	
+	bool isError = mwStatus.statusCode != 0;
+	MwStatusErrorBlock->Visibility = isError ? Windows::UI::Xaml::Visibility::Visible : Windows::UI::Xaml::Visibility::Collapsed;
+	if(isError) {
+		MwStatusCode->Text = mwStatus.statusCode.ToString();
+		MwStatusCodeDesc->Text = stdToPlatformString(mwStatus.errorDesc);
+	}
+	
 	int numConnected = mwStatus.connectedDevices.size();
 	ConnectedDevicesNum_Text->Text = numConnected.ToString();
 
+	// Update buttons based on status
 	ButtonStartClient->IsEnabled = connected && !isRunning && numConnected > 0;
 	ButtonStopClient->IsEnabled = connected && isRunning;
 
