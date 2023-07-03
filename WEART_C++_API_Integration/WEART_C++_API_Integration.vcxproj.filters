@@ -37,6 +37,9 @@
     </ClCompile>
     <ClCompile Include="WEART_SDK\WeArtEffect.cpp" />
     <ClCompile Include="WEART_SDK\WeArtRawSensorsData.cpp" />
+    <ClCompile Include="WEART_SDK\MiddlewareStatusListener.cpp">
+      <Filter>WEART_SDK</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -84,6 +87,9 @@
     </ClInclude>
     <ClInclude Include="WEART_SDK\WeArtRawSensorsData.h" />
     <ClInclude Include="WEART_SDK\nlohmann\json.hpp" />
+    <ClInclude Include="WEART_SDK\MiddlewareStatusListener.h">
+      <Filter>WEART_SDK</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png">

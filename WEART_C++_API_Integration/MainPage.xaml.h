@@ -11,6 +11,7 @@
 #include <WEART_SDK/WeArtHapticObject.h>
 #include <WEART_SDK/WeArtThimbleTrackingObject.h>
 #include <WEART_SDK/WeArtTrackingCalibration.h>
+#include <WEART_SDK/MiddlewareStatusListener.h>
 
 namespace WEART_C___API_Integration
 {
@@ -38,6 +39,7 @@ namespace WEART_C___API_Integration
 		void RenderClosureAbduction();
 		void RenderRawSensorsData();
 		void RenderCalibrationStatus();
+		void RenderMiddlewareStatus();
 
 		void OnConnectionStatusChanged(bool connected);
 
@@ -61,5 +63,10 @@ namespace WEART_C___API_Integration
 		std::map < std::pair < std::string, std::string > , WeArtRawSensorsData* > sensors;
 		void AddSensor(std::string handSide, std::string actuationPoint);
 		std::pair<std::string, std::string> GetSensorChoice();
+
+		// Middleware status
+		MiddlewareStatusListener* mwListener;
+
+		Platform::String^ stdToPlatformString(const std::string& input);
 	};
 }

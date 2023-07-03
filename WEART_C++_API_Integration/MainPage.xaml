@@ -9,10 +9,33 @@
 
     <Grid>
         <TextBlock x:Name="TextConnectionStatus" Margin="100,20,0,0" FontSize="16" FontWeight="Bold" Text="Not Connected" Foreground="Red"/>
-        <Button x:Name="ButtonStartClient" Content="Start Client" Margin="100,60,0,0" VerticalAlignment="Top" Click="ButtonStartClient_Click" IsEnabled="False"/>
-        <Button x:Name="ButtonStopClient" Content="Stop Client" Margin="230,60,0,0" VerticalAlignment="Top" Click="ButtonStopClient_Click" IsEnabled="False"/>
+        <Button x:Name="ButtonStartClient" Content="Start Client" Margin="100,60,0,0" VerticalAlignment="Top" Click="ButtonStartClient_Click" IsEnabled="True"/>
+        <Button x:Name="ButtonStopClient" Content="Stop Client" Margin="230,60,0,0" VerticalAlignment="Top" Click="ButtonStopClient_Click" IsEnabled="True"/>
         <Button x:Name="ButtonStartCalibration" Content="Calibrate" Margin="360,60,0,0" VerticalAlignment="Top" Click="ButtonStartCalibration_Click" IsEnabled="False"/>
         <TextBlock Text="" x:Name="TextCalibrationStatus" Margin="450,67,0,0" FontSize="16" FontWeight="Bold" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300"/>
+
+        <StackPanel x:Name="MwStatusPanel" Orientation="Horizontal" Margin="100,110,0,0" HorizontalAlignment="Left"
+                    Width="1000" Height="50" VerticalAlignment="Top" Spacing="10">
+            <TextBlock FontSize="16" FontWeight="Bold" VerticalAlignment="Center">
+                <Run>Middleware (version</Run>
+                <Run x:Name="MiddlewareVersion_Text" Text="v2.1.34"/>
+                <Run>) - Status: </Run>
+                <Run x:Name="MiddlewareStatus_Text" Text="NONE" Foreground="Red"/>
+            </TextBlock>
+
+            <TextBlock FontSize="16" FontWeight="Bold" VerticalAlignment="Center">
+                <Run> - </Run> 
+                <Run x:Name="ConnectedDevicesNum_Text" Text="0"/>
+                <Run>devices connected.</Run> 
+            </TextBlock>
+
+            <TextBlock x:Name="ErrorTextBlock"  FontSize="16" FontWeight="Bold" VerticalAlignment="Center">
+                <Run> - Status code: </Run>
+                <Run x:Name="MwStatusCode" Text="0"/>
+                <Run> - Description: </Run>
+                <Run x:Name="MwStatusCodeDesc" Text=""/>
+            </TextBlock>
+        </StackPanel>
 
         <Button x:Name="ButtonEffectSample1" Content="Add effect sample 1" Margin="100,170,0,0" VerticalAlignment="Top" Click="ButtonEffectSample1_Click" IsEnabled="False"/>
         <Button x:Name="ButtonEffectSample2" Content="Add effect sample 2" Margin="100,220,0,0" VerticalAlignment="Top" Click="ButtonEffectSample2_Click" IsEnabled="False"/>
