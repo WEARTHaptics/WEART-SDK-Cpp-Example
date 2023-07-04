@@ -113,11 +113,21 @@
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
       <Filter>Assets</Filter>
     </Image>
+    <Image Include="Assets\hand.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\battery.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\battery_charging.png">
+      <Filter>Assets</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainPage.xaml" />
+    <Page Include="HandStatus.xaml" />
   </ItemGroup>
 </Project>

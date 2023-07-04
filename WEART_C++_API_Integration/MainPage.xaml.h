@@ -6,6 +6,7 @@
 #pragma once
 
 #include "MainPage.g.h"
+#include "HandStatus.xaml.h"
 #include <WEART_SDK/WeArtCommon.h>
 #include <WEART_SDK/WeArtClient.h>
 #include <WEART_SDK/WeArtHapticObject.h>
@@ -40,6 +41,9 @@ namespace WEART_C___API_Integration
 		void RenderRawSensorsData();
 		void RenderCalibrationStatus();
 		void RenderMiddlewareStatus();
+		void RenderDevicesStatus();
+
+		void RenderHand(HandStatus^ hand, bool connected, ConnectedDeviceStatus status);
 
 		void OnConnectionStatusChanged(bool connected);
 

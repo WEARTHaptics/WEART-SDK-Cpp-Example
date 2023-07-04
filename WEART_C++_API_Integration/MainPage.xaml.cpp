@@ -103,6 +103,7 @@ void MainPage::TestTimer(Windows::System::Threading::ThreadPoolTimer^ timer)
 				RenderClosureAbduction();
 				RenderRawSensorsData();
 				RenderMiddlewareStatus();
+				RenderDevicesStatus();
 			}));
 }
 
@@ -194,13 +195,13 @@ void WEART_C___API_Integration::MainPage::RenderMiddlewareStatus()
 	MiddlewareStatusData mwStatus = mwListener->lastStatus();
 	bool isRunning = mwStatus.status == MiddlewareStatus::STARTING || mwStatus.status == MiddlewareStatus::RUNNING;
 	bool connected = weArtClient->IsConnected();
-	
+
 	// Update middleware status block
-	if(!connected)
+	if (!connected)
 		MiddlewareStatus_Text->Text = "NONE";
 	else
 		MiddlewareStatus_Text->Text = stdToPlatformString(MiddlewareStatusToString(mwStatus.status));
-	
+
 	bool isGreen = isRunning || mwStatus.status == MiddlewareStatus::IDLE;
 	bool isYellow = mwStatus.status == MiddlewareStatus::STOPPING
 		|| mwStatus.status == MiddlewareStatus::CALIBRATION
@@ -210,14 +211,10 @@ void WEART_C___API_Integration::MainPage::RenderMiddlewareStatus()
 
 	Windows::UI::Color color = isRed ? Windows::UI::Colors::Red : (isYellow ? Windows::UI::Colors::Orange : Windows::UI::Colors::Green);
 	MiddlewareStatus_Text->Foreground = ref new SolidColorBrush(color);
-	
-	bool isError = mwStatus.statusCode != 0;
-	MwStatusErrorBlock->Visibility = isError ? Windows::UI::Xaml::Visibility::Visible : Windows::UI::Xaml::Visibility::Collapsed;
-	if(isError) {
-		MwStatusCode->Text = mwStatus.statusCode.ToString();
-		MwStatusCodeDesc->Text = stdToPlatformString(mwStatus.errorDesc);
-	}
-	
+
+	MwStatusCode->Text = mwStatus.statusCode.ToString();
+	MwStatusCodeDesc->Text = mwStatus.statusCode == 0 ? "OK" : stdToPlatformString(mwStatus.errorDesc);
+
 	int numConnected = mwStatus.connectedDevices.size();
 	ConnectedDevicesNum_Text->Text = numConnected.ToString();
 
@@ -236,6 +233,60 @@ void WEART_C___API_Integration::MainPage::RenderMiddlewareStatus()
 	ButtonEffectSample3->IsEnabled = connected && isRunning;
 
 	ButtonRemoveEffect->IsEnabled = connected && isRunning;
+}
+
+void WEART_C___API_Integration::MainPage::RenderDevicesStatus() {
+	bool leftConnected = false;
+	ConnectedDeviceStatus leftStatus;
+	bool rightConnected = false;
+	ConnectedDeviceStatus rightStatus;
+
+	// Get Devices status
+	std::vector<ConnectedDeviceStatus> devices = mwListener->devices();
+	for (ConnectedDeviceStatus device : devices) {
+		if (device.handSide == HandSide::Left) {
+			leftConnected = true;
+			leftStatus = device;
+		}
+		if (device.handSide == HandSide::Right) {
+			rightConnected = true;
+			rightStatus = device;
+		}
+	}
+
+	RenderHand(LeftHand, leftConnected, leftStatus);
+	RenderHand(RightHand, rightConnected, rightStatus);
+}
+
+void WEART_C___API_Integration::MainPage::RenderHand(HandStatus^ hand, bool connected, ConnectedDeviceStatus status)
+{
+	if (!connected) {
+		hand->Connected = false;
+		hand->Refresh();
+		return;
+	}
+
+	hand->Connected = true;
+	hand->MacAddress = stdToPlatformString(status.macAddress);
+	hand->BatteryLevel = stdToPlatformString(std::to_string(status.batteryLevel));
+	hand->Charging = status.charging;
+	for (ThimbleStatus thimble : status.thimbles) {
+		switch (thimble.id) {
+		case ActuationPoint::Thumb:
+			hand->ThumbConnected = thimble.connected;
+			hand->ThumbOk = thimble.statusCode == 0;
+			break;
+		case ActuationPoint::Index:
+			hand->IndexConnected = thimble.connected;
+			hand->IndexOk = thimble.statusCode == 0;
+			break;
+		case ActuationPoint::Middle:
+			hand->MiddleConnected = thimble.connected;
+			hand->MiddleOk = thimble.statusCode == 0;
+			break;
+		}
+	}
+	hand->Refresh();
 }
 
 void MainPage::OnConnectionStatusChanged(bool connected) {
