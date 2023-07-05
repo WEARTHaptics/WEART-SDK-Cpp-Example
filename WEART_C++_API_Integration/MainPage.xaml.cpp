@@ -202,6 +202,8 @@ void WEART_C___API_Integration::MainPage::RenderMiddlewareStatus()
 	else
 		MiddlewareStatus_Text->Text = stdToPlatformString(MiddlewareStatusToString(mwStatus.status));
 
+	MiddlewareVersion_Text->Text = stdToPlatformString(mwStatus.version);
+
 	bool isGreen = isRunning || mwStatus.status == MiddlewareStatus::IDLE;
 	bool isYellow = mwStatus.status == MiddlewareStatus::STOPPING
 		|| mwStatus.status == MiddlewareStatus::CALIBRATION
@@ -212,8 +214,12 @@ void WEART_C___API_Integration::MainPage::RenderMiddlewareStatus()
 	Windows::UI::Color color = isRed ? Windows::UI::Colors::Red : (isYellow ? Windows::UI::Colors::Orange : Windows::UI::Colors::Green);
 	MiddlewareStatus_Text->Foreground = ref new SolidColorBrush(color);
 
+	bool isStatusOk = mwStatus.statusCode == 0;
 	MwStatusCode->Text = mwStatus.statusCode.ToString();
-	MwStatusCodeDesc->Text = mwStatus.statusCode == 0 ? "OK" : stdToPlatformString(mwStatus.errorDesc);
+	MwStatusCode->Foreground = ref new SolidColorBrush(isStatusOk ? Windows::UI::Colors::Green : Windows::UI::Colors::Red);
+	MwStatusCodeDesc->Text = isStatusOk ? "OK" : stdToPlatformString(mwStatus.errorDesc);
+	MwStatusCodeDesc->Foreground = ref new SolidColorBrush(isStatusOk ? Windows::UI::Colors::Green : Windows::UI::Colors::Red);
+
 
 	int numConnected = mwStatus.connectedDevices.size();
 	ConnectedDevicesNum_Text->Text = numConnected.ToString();
