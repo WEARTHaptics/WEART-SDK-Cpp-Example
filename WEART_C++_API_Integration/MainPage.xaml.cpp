@@ -28,16 +28,16 @@ using namespace Windows::UI::Core;
 MainPage::MainPage()
 {
 	InitializeComponent();
-	
+
 	weArtClient = new WeArtClient(WeArtConstants::DEFAULT_IP_ADDRESS, WeArtConstants::DEFAULT_TCP_PORT); //IP ADDRESS and PORT of Middleware PC	
-	
+
 	// Add connection status callback to get notified when the client connects and disconnects from the middleware
 	weArtClient->AddConnectionStatusCallback([this](bool connected) { OnConnectionStatusChanged(connected); });
 
 	// create haptic object to manage actuation on Righ hand and Index Thimble
 	hapticObject = new WeArtHapticObject(weArtClient);
-	hapticObject->handSideFlag = HandSide::Right;
-	hapticObject->actuationPointFlag = ActuationPoint::Index;
+	hapticObject->handSideFlag = (int)HandSide::Right;
+	hapticObject->actuationPointFlag = (int)ActuationPoint::Index;
 
 	//define feeling properties to create an effect
 	WeArtTemperature temperature = WeArtTemperature();
@@ -71,6 +71,12 @@ MainPage::MainPage()
 	AddSensor("RIGHT", "THUMB");
 	AddSensor("RIGHT", "PALM");
 
+	// Add Middleware status listener
+	mwListener = new MiddlewareStatusListener();
+	weArtClient->AddMessageListener(mwListener);
+
+
+
 	// schedule reading closure value any 0.1secs
 	TimeSpan period;
 	period.Duration = 0.1 * 10000000; // 0.1sec
@@ -82,7 +88,7 @@ MainPage::MainPage()
 
 void MainPage::Connect() {
 	auto workItem = ref new WorkItemHandler([this](IAsyncAction^ workItem) {
-	 	while (!weArtClient->IsConnected())
+		while (!weArtClient->IsConnected())
 			weArtClient->Run();
 		});
 	ThreadPool::RunAsync(workItem);
@@ -96,6 +102,8 @@ void MainPage::TestTimer(Windows::System::Threading::ThreadPoolTimer^ timer)
 				RenderCalibrationStatus();
 				RenderClosureAbduction();
 				RenderRawSensorsData();
+				RenderMiddlewareStatus();
+				RenderDevicesStatus();
 			}));
 }
 
@@ -111,7 +119,7 @@ void MainPage::RenderClosureAbduction() {
 	ValueMiddleLeftClosure->Text = middleLeftThimbleTracking->GetClosure().ToString();
 }
 
-void MainPage::RenderRawSensorsData() {	
+void MainPage::RenderRawSensorsData() {
 	// Get chosen sensor
 	std::pair<std::string, std::string> sensorChoice = GetSensorChoice();
 	if (sensors.find(sensorChoice) == sensors.end())
@@ -154,19 +162,27 @@ std::pair<std::string, std::string> WEART_C___API_Integration::MainPage::GetSens
 	return std::make_pair(handSide, actuationPoint);
 }
 
+Platform::String^ WEART_C___API_Integration::MainPage::stdToPlatformString(const std::string& input) {
+	std::wstring w_str = std::wstring(input.begin(), input.end());
+	const wchar_t* w_chars = w_str.c_str();
+
+	return (ref new Platform::String(w_chars));
+}
+
 void MainPage::RenderCalibrationStatus() {
 	if (!calibrating) {
-		if(weArtClient->IsConnected())
+		if (weArtClient->IsConnected())
 			ButtonStartCalibration->IsEnabled = true;
 		return;
 	}
 
 	TextCalibrationStatus->Text = "Calibrating...";
 
-	if(calibration->getStatus() ==  CalibrationStatus::Running) { 
+	if (calibration->getStatus() == CalibrationStatus::Running) {
 		if (calibration->getResult()) {
 			TextCalibrationStatus->Text = "Calibrated!!";
-		} else {
+		}
+		else {
 			TextCalibrationStatus->Text = "Calibration Error";
 		}
 		ButtonStartCalibration->IsEnabled = true;
@@ -174,24 +190,116 @@ void MainPage::RenderCalibrationStatus() {
 	}
 }
 
+void WEART_C___API_Integration::MainPage::RenderMiddlewareStatus()
+{
+	MiddlewareStatusUpdate mwStatus = mwListener->lastStatus();
+	bool isRunning = mwStatus.status == MiddlewareStatus::STARTING || mwStatus.status == MiddlewareStatus::RUNNING;
+	bool connected = weArtClient->IsConnected();
+
+	// Update middleware status block
+	if (!connected)
+		MiddlewareStatus_Text->Text = "NONE";
+	else
+		MiddlewareStatus_Text->Text = stdToPlatformString(MiddlewareStatusToString(mwStatus.status));
+
+	MiddlewareVersion_Text->Text = stdToPlatformString(mwStatus.version);
+
+	bool isGreen = isRunning || mwStatus.status == MiddlewareStatus::IDLE;
+	bool isYellow = mwStatus.status == MiddlewareStatus::STOPPING
+		|| mwStatus.status == MiddlewareStatus::CALIBRATION
+		|| mwStatus.status == MiddlewareStatus::UPLOADING_TEXTURES
+		|| mwStatus.status == MiddlewareStatus::CONNECTING_DEVICE;
+	bool isRed = !connected || mwStatus.status == MiddlewareStatus::DISCONNECTED;
+
+	Windows::UI::Color color = isRed ? Windows::UI::Colors::Red : (isYellow ? Windows::UI::Colors::Orange : Windows::UI::Colors::Green);
+	MiddlewareStatus_Text->Foreground = ref new SolidColorBrush(color);
+
+	bool isStatusOk = mwStatus.statusCode == 0;
+	MwStatusCode->Text = mwStatus.statusCode.ToString();
+	MwStatusCode->Foreground = ref new SolidColorBrush(isStatusOk ? Windows::UI::Colors::Green : Windows::UI::Colors::Red);
+	MwStatusCodeDesc->Text = isStatusOk ? "OK" : stdToPlatformString(mwStatus.errorDesc);
+	MwStatusCodeDesc->Foreground = ref new SolidColorBrush(isStatusOk ? Windows::UI::Colors::Green : Windows::UI::Colors::Red);
+
+
+	int numConnected = mwStatus.devices.size();
+	ConnectedDevicesNum_Text->Text = numConnected.ToString();
+
+	// Update buttons based on status
+	ButtonStartClient->IsEnabled = connected && !isRunning && numConnected > 0;
+	ButtonStopClient->IsEnabled = connected && isRunning;
+
+	ButtonStartCalibration->IsEnabled = connected && isRunning;
+	ButtonStartRawData->IsEnabled = connected && isRunning;
+	ButtonStopRawData->IsEnabled = connected && isRunning;
+	HandSideChoice->IsEnabled = connected && isRunning;
+	ActuationPointChoice->IsEnabled = connected && isRunning;
+
+	ButtonEffectSample1->IsEnabled = connected && isRunning;
+	ButtonEffectSample2->IsEnabled = connected && isRunning;
+	ButtonEffectSample3->IsEnabled = connected && isRunning;
+
+	ButtonRemoveEffect->IsEnabled = connected && isRunning;
+}
+
+void WEART_C___API_Integration::MainPage::RenderDevicesStatus() {
+	bool leftConnected = false;
+	ConnectedDeviceStatus leftStatus;
+	bool rightConnected = false;
+	ConnectedDeviceStatus rightStatus;
+
+	// Get Devices status
+	std::vector<ConnectedDeviceStatus> devices = mwListener->lastStatus().devices;
+	for (ConnectedDeviceStatus device : devices) {
+		if (device.handSide == HandSide::Left) {
+			leftConnected = true;
+			leftStatus = device;
+		}
+		if (device.handSide == HandSide::Right) {
+			rightConnected = true;
+			rightStatus = device;
+		}
+	}
+
+	RenderHand(LeftHand, leftConnected, leftStatus);
+	RenderHand(RightHand, rightConnected, rightStatus);
+}
+
+void WEART_C___API_Integration::MainPage::RenderHand(HandStatus^ hand, bool connected, ConnectedDeviceStatus status)
+{
+	if (!connected) {
+		hand->Connected = false;
+		hand->Refresh();
+		return;
+	}
+
+	hand->Connected = true;
+	hand->MacAddress = stdToPlatformString(status.macAddress);
+	hand->BatteryLevel = stdToPlatformString(std::to_string(status.batteryLevel));
+	hand->Charging = status.charging;
+	for (ThimbleStatus thimble : status.thimbles) {
+		switch (thimble.id) {
+		case ActuationPoint::Thumb:
+			hand->ThumbConnected = thimble.connected;
+			hand->ThumbOk = thimble.statusCode == 0;
+			break;
+		case ActuationPoint::Index:
+			hand->IndexConnected = thimble.connected;
+			hand->IndexOk = thimble.statusCode == 0;
+			break;
+		case ActuationPoint::Middle:
+			hand->MiddleConnected = thimble.connected;
+			hand->MiddleOk = thimble.statusCode == 0;
+			break;
+		}
+	}
+	hand->Refresh();
+}
+
 void MainPage::OnConnectionStatusChanged(bool connected) {
 	Dispatcher->RunAsync(CoreDispatcherPriority::High,
 		ref new DispatchedHandler([this, connected]() {
 			TextConnectionStatus->Text = connected ? "Connected" : "Not Connected";
 			TextConnectionStatus->Foreground = ref new SolidColorBrush(connected ? Windows::UI::Colors::Green : Windows::UI::Colors::Red);
-
-			ButtonStartClient->IsEnabled = connected;
-			ButtonStopClient->IsEnabled = connected;
-
-			ButtonStartCalibration->IsEnabled = connected;
-			ButtonStartRawData->IsEnabled = connected;
-			ButtonStopRawData->IsEnabled = connected;
-
-			ButtonEffectSample1->IsEnabled = connected;
-			ButtonEffectSample2->IsEnabled = connected;
-			ButtonEffectSample3->IsEnabled = connected;
-			ButtonRemoveEffect->IsEnabled = connected;
-
 			}));
 
 	if (!connected)
@@ -248,7 +356,7 @@ void MainPage::ButtonEffectSample1_Click(Platform::Object^ sender, Windows::UI::
 	// add effect to thimble or update
 	if (hapticObject->activeEffects.size() <= 0)
 		hapticObject->AddEffect(touchEffect);
-	else 
+	else
 		hapticObject->UpdateEffects();
 }
 
