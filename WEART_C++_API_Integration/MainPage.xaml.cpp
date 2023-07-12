@@ -192,7 +192,7 @@ void MainPage::RenderCalibrationStatus() {
 
 void WEART_C___API_Integration::MainPage::RenderMiddlewareStatus()
 {
-	MiddlewareStatusData mwStatus = mwListener->lastStatus();
+	MiddlewareStatusUpdate mwStatus = mwListener->lastStatus();
 	bool isRunning = mwStatus.status == MiddlewareStatus::STARTING || mwStatus.status == MiddlewareStatus::RUNNING;
 	bool connected = weArtClient->IsConnected();
 
@@ -221,7 +221,7 @@ void WEART_C___API_Integration::MainPage::RenderMiddlewareStatus()
 	MwStatusCodeDesc->Foreground = ref new SolidColorBrush(isStatusOk ? Windows::UI::Colors::Green : Windows::UI::Colors::Red);
 
 
-	int numConnected = mwStatus.connectedDevices.size();
+	int numConnected = mwStatus.devices.size();
 	ConnectedDevicesNum_Text->Text = numConnected.ToString();
 
 	// Update buttons based on status
@@ -248,7 +248,7 @@ void WEART_C___API_Integration::MainPage::RenderDevicesStatus() {
 	ConnectedDeviceStatus rightStatus;
 
 	// Get Devices status
-	std::vector<ConnectedDeviceStatus> devices = mwListener->devices();
+	std::vector<ConnectedDeviceStatus> devices = mwListener->lastStatus().devices;
 	for (ConnectedDeviceStatus device : devices) {
 		if (device.handSide == HandSide::Left) {
 			leftConnected = true;
