@@ -101,7 +101,8 @@ void MainPage::TestTimer(Windows::System::Threading::ThreadPoolTimer^ timer)
 			{
 				RenderCalibrationStatus();
 				RenderClosureAbduction();
-				RenderRawSensorsData();
+				RenderTrackingRawSensorsData();
+				RenderAnalogRawSensorData();
 				RenderMiddlewareStatus();
 				RenderDevicesStatus();
 			}));
@@ -119,15 +120,15 @@ void MainPage::RenderClosureAbduction() {
 	ValueMiddleLeftClosure->Text = middleLeftThimbleTracking->GetClosure().ToString();
 }
 
-void MainPage::RenderRawSensorsData() {
+void MainPage::RenderTrackingRawSensorsData() {
 	// Get chosen sensor
 	std::pair<std::string, std::string> sensorChoice = GetSensorChoice();
-	if (sensors.find(sensorChoice) == sensors.end())
+	if (trackingSensors.find(sensorChoice) == trackingSensors.end())
 		return;
-	WeArtRawSensorsData* sensor = sensors[sensorChoice];
+	WeArtTrackingRawData* sensor = trackingSensors[sensorChoice];
 
 	// Render raw data to screen
-	WeArtRawSensorsData::Sample sample = sensor->GetLastSample();
+	WeArtTrackingRawData::Sample sample = sensor->GetLastSample();
 	Acc_X->Text = sample.data.accelerometer.x.ToString();
 	Acc_Y->Text = sample.data.accelerometer.y.ToString();
 	Acc_Z->Text = sample.data.accelerometer.z.ToString();
@@ -139,6 +140,22 @@ void MainPage::RenderRawSensorsData() {
 	TimeOfFlight->Text = sample.data.timeOfFlight.distance.ToString();
 
 	LastSampleTime->Text = sample.timestamp.ToString();
+}
+
+void MainPage::RenderAnalogRawSensorData() {
+	// Get chosen sensor
+	std::pair<std::string, std::string> sensorChoice = GetSensorChoice();
+	if (trackingSensors.find(sensorChoice) == trackingSensors.end())
+		return;
+	WeArtAnalogSensorData* sensor = analogSensors[sensorChoice];
+
+	// Render raw data to screen
+	WeArtAnalogSensorData::Sample sample = sensor->GetLastSample();
+
+	LastSampleTime->Text = sample.timestamp.ToString();
+
+	NTCTemperature->Text = sample.data.ntcTemperatureRaw.ToString() + " - " + sample.data.ntcTemperatureConverted.ToString();
+	FSR->Text = sample.data.forceSensingRaw.ToString() + " - " + sample.data.forceSensingConverted.ToString();
 }
 
 std::pair<std::string, std::string> WEART_C___API_Integration::MainPage::GetSensorChoice()
@@ -428,7 +445,11 @@ void MainPage::AddSensor(std::string handSide, std::string actuationPoint) {
 	HandSide hs = StringToHandside(handSide);
 	ActuationPoint ap = StringToActuationPoint(actuationPoint);
 
-	auto sensor = new WeArtRawSensorsData(hs, ap);
-	sensors[std::make_pair(handSide, actuationPoint)] = sensor;
+	auto sensor = new WeArtTrackingRawData(hs, ap);
+	trackingSensors[std::make_pair(handSide, actuationPoint)] = sensor;
 	weArtClient->AddMessageListener(sensor);
+
+	auto analogSensor = new WeArtAnalogSensorData(hs, ap);
+	analogSensors[std::make_pair(handSide, actuationPoint)] = analogSensor;
+	weArtClient->AddMessageListener(analogSensor);
 }

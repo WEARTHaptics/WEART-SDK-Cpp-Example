@@ -188,6 +188,7 @@
     </ClInclude>
     <ClInclude Include="WEART_SDK\MiddlewareStatusListener.h" />
     <ClInclude Include="WEART_SDK\nlohmann\json.hpp" />
+    <ClInclude Include="WEART_SDK\WeArtAnalogSensorData.h" />
     <ClInclude Include="WEART_SDK\WeArtClient.h" />
     <ClInclude Include="WEART_SDK\WeArtClosure.h" />
     <ClInclude Include="WEART_SDK\WeArtCommon.h" />
@@ -198,11 +199,11 @@
     <ClInclude Include="WEART_SDK\WeArtMessageListener.h" />
     <ClInclude Include="WEART_SDK\WeArtMessages.h" />
     <ClInclude Include="WEART_SDK\WeArtMessageSerializer.h" />
-    <ClInclude Include="WEART_SDK\WeArtRawSensorsData.h" />
     <ClInclude Include="WEART_SDK\WeArtTemperature.h" />
     <ClInclude Include="WEART_SDK\WeArtTexture.h" />
     <ClInclude Include="WEART_SDK\WeArtThimbleTrackingObject.h" />
     <ClInclude Include="WEART_SDK\WeArtTrackingCalibration.h" />
+    <ClInclude Include="WEART_SDK\WeArtTrackingRawData.h" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -251,14 +252,15 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="WEART_SDK\MiddlewareStatusListener.cpp" />
+    <ClCompile Include="WEART_SDK\WeArtAnalogSensorData.cpp" />
     <ClCompile Include="WEART_SDK\WeArtClient.cpp" />
     <ClCompile Include="WEART_SDK\WeArtEffect.cpp" />
     <ClCompile Include="WEART_SDK\WeArtHapticObject.cpp" />
     <ClCompile Include="WEART_SDK\WeArtMessages.cpp" />
     <ClCompile Include="WEART_SDK\WeArtMessageSerializer.cpp" />
-    <ClCompile Include="WEART_SDK\WeArtRawSensorsData.cpp" />
     <ClCompile Include="WEART_SDK\WeArtThimbleTrackingObject.cpp" />
     <ClCompile Include="WEART_SDK\WeArtTrackingCalibration.cpp" />
+    <ClCompile Include="WEART_SDK\WeArtTrackingRawData.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

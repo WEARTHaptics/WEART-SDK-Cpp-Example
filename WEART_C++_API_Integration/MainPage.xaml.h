@@ -38,7 +38,8 @@ namespace WEART_C___API_Integration
 		void TestTimer(Windows::System::Threading::ThreadPoolTimer^ timer);
 
 		void RenderClosureAbduction();
-		void RenderRawSensorsData();
+		void RenderTrackingRawSensorsData();
+		void RenderAnalogRawSensorData();
 		void RenderCalibrationStatus();
 		void RenderMiddlewareStatus();
 		void RenderDevicesStatus();
@@ -63,10 +64,12 @@ namespace WEART_C___API_Integration
 		WeArtThimbleTrackingObject* thumbLeftThimbleTracking;
 		WeArtThimbleTrackingObject* middleLeftThimbleTracking;
 
-		// Raw Sensors
-		std::map < std::pair < std::string, std::string > , WeArtRawSensorsData* > sensors;
-		void AddSensor(std::string handSide, std::string actuationPoint);
+		// Raw Tracking Sensors
+		std::map < std::pair < std::string, std::string > , WeArtTrackingRawData* > trackingSensors;
+		std::map < std::pair < std::string, std::string >, WeArtAnalogSensorData* > analogSensors;
+
 		std::pair<std::string, std::string> GetSensorChoice();
+		void AddSensor(std::string handSide, std::string actuationPoint);
 
 		// Middleware status
 		MiddlewareStatusListener* mwListener;
