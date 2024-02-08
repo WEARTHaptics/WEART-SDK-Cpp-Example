@@ -154,8 +154,12 @@ void MainPage::RenderAnalogRawSensorData() {
 
 	LastSampleTime->Text = sample.timestamp.ToString();
 
-	NTCTemperature->Text = sample.data.ntcTemperatureRaw.ToString() + " - " + sample.data.ntcTemperatureConverted.ToString();
-	FSR->Text = sample.data.forceSensingRaw.ToString() + " - " + sample.data.forceSensingConverted.ToString();
+	// raw data
+	//sample.data.ntcTemperatureRaw.ToString();
+	//sample.data.forceSensingRaw.ToString();
+
+	NTCTemperature->Text = sample.data.ntcTemperatureConverted.ToString();
+	FSR->Text = sample.data.forceSensingConverted.ToString();
 }
 
 std::pair<std::string, std::string> WEART_C___API_Integration::MainPage::GetSensorChoice()
@@ -453,3 +457,5 @@ void MainPage::AddSensor(std::string handSide, std::string actuationPoint) {
 	analogSensors[std::make_pair(handSide, actuationPoint)] = analogSensor;
 	weArtClient->AddMessageListener(analogSensor);
 }
+
+

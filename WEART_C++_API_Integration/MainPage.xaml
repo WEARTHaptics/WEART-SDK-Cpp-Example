@@ -59,11 +59,11 @@
 
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Margin="470,495,0,0" Width="790" Height="60"  VerticalAlignment="Top" HorizontalAlignment="Left" Spacing="70" BorderThickness="1" BorderBrush="#CCCCCC" Padding="15,0,0,0">
-            <Button x:Name="ButtonEffectSample1" Content="Add effect sample 1" HorizontalAlignment="Center" Click="ButtonEffectSample1_Click" IsEnabled="False"/>
-            <Button x:Name="ButtonEffectSample2" Content="Add effect sample 2" HorizontalAlignment="Center" Click="ButtonEffectSample2_Click" IsEnabled="False"/>
-            <Button x:Name="ButtonEffectSample3" Content="Add effect sample 3" HorizontalAlignment="Center"  Click="ButtonEffectSample3_Click" IsEnabled="False"/>
-            <Button x:Name="ButtonRemoveEffect" Content="Remove Effect" HorizontalAlignment="Center" Click="ButtonRemoveEffect_Click" IsEnabled="False"/>
+        <StackPanel Orientation="Horizontal" Margin="470,495,0,0" Width="840" Height="60"  VerticalAlignment="Top" HorizontalAlignment="Left" Spacing="70" BorderThickness="1" BorderBrush="#CCCCCC" Padding="15,0,0,0">
+            <Button x:Name="ButtonEffectSample1" Width="150"  Content="Add effect sample 1" HorizontalAlignment="Center" Click="ButtonEffectSample1_Click" IsEnabled="False"/>
+            <Button x:Name="ButtonEffectSample2" Width="150" Content="Add effect sample 2" HorizontalAlignment="Center" Click="ButtonEffectSample2_Click" IsEnabled="False"/>
+            <Button x:Name="ButtonEffectSample3" Width="150" Content="Add effect sample 3"  Click="ButtonEffectSample3_Click" IsEnabled="False"/>
+            <Button x:Name="ButtonRemoveEffect" Width="150" Content="Remove Effect" HorizontalAlignment="Center" Click="ButtonRemoveEffect_Click" IsEnabled="False"/>
         </StackPanel>
 
         <StackPanel Orientation="Vertical" Margin="470,110,0,0" HorizontalAlignment="Left" 
@@ -96,7 +96,7 @@
             </TextBlock>
         </StackPanel>
 
-        <StackPanel Margin="840,110,0,0" HorizontalAlignment="Left" Width="420" Height="352" VerticalAlignment="Top" BorderThickness="1" BorderBrush="#CCCCCC" Padding="10">
+        <StackPanel Margin="840,110,0,0" HorizontalAlignment="Left" Width="470" Height="352" VerticalAlignment="Top" BorderThickness="1" BorderBrush="#CCCCCC" Padding="10">
             <StackPanel Orientation="Horizontal" Margin="0,10,0,10" Spacing="10">
                 <Button x:Name="ButtonStartRawData" Content="Start Raw Data" VerticalAlignment="Top" Click="ButtonStartRawData_Click" IsEnabled="False"/>
                 <Button x:Name="ButtonStopRawData" Content="Stop Raw Data" VerticalAlignment="Top" Click="ButtonStopRawData_Click" IsEnabled="False"/>
@@ -119,13 +119,13 @@
 
             <StackPanel Orientation="Horizontal" Height="40" Margin="0,0,0,0" >
                 <TextBlock FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <Run Text="Time: "/>
+                    <Run Text="Unix timestamp: "/>
                     <Run x:Name="LastSampleTime" Text=""/>
                 </TextBlock>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Height="40" Margin="0,0,0,0" >
-                <TextBlock Text="Accelerometer (x,y,z):" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Text="Accelerometer (x,y,z) [g] :" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 <TextBlock x:Name="Accelerometer" FontSize="16" FontWeight="Bold" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <Run x:Name="Acc_X">0.00000</Run>
                     <Run>,</Run>
@@ -136,7 +136,7 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Height="40" Margin="0,0,0,0" >
-                <TextBlock Text="Gyroscope (x,y,z):" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Text="Gyroscope (x,y,z) [deg/s]:" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 <TextBlock x:Name="Gyroscope" FontSize="16" FontWeight="Bold" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <Run x:Name="Gyro_X">0.00000</Run>
                     <Run>,</Run>
@@ -147,17 +147,17 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Height="40" Margin="0,0,0,0" >
-                <TextBlock Text="ToF Distance:" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Text="ToF Distance [mm]:" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 <TextBlock Text="0" x:Name="TimeOfFlight" FontSize="16" FontWeight="Bold" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Height="40" Margin="0,0,0,0" >
-                <TextBlock Text="NTC Tempereture:" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Text="NTC Tempereture [°C]:" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 <TextBlock Text="0" x:Name="NTCTemperature" FontSize="16" FontWeight="Bold" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Height="40" Margin="0,0,0,0" >
-                <TextBlock Text="FSR:" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Text="FSR [N]:" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 <TextBlock Text="0" x:Name="FSR" FontSize="16" FontWeight="Bold" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             </StackPanel>
 

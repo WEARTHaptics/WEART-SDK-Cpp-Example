@@ -75,5 +75,6 @@ namespace WEART_C___API_Integration
 		MiddlewareStatusListener* mwListener;
 
 		Platform::String^ stdToPlatformString(const std::string& input);
+		void TextBlock_SelectionChanged(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 	};
 }
