@@ -1,8 +1,11 @@
 
 # Change Log
 All notable changes to this project will be documented in this file.
+
+## [1.3.0]
+Nothings has changed about the API and source code
  
-## [1.2.0] - 2024-02-18
+## [1.2.0]
  
 ### Added
 
