@@ -16,6 +16,9 @@
                 <Ellipse x:Name="ThumbThimble" Width="11" Height="11" Fill="Black" Opacity="0.4" Canvas.Left="76" Canvas.Top="48"/>
                 <Ellipse x:Name="IndexThimble" Width="12" Height="12" Fill="Black" Opacity="0.4" Canvas.Left="54.5" Canvas.Top="12"/>
                 <Ellipse x:Name="MiddleThimble" Width="12" Height="12" Fill="Black" Opacity="0.4" Canvas.Left="41" Canvas.Top="3"/>
+                <Ellipse x:Name="AnnularThimble" Width="13" Height="13" Fill="Black" Opacity="0.4" Canvas.Left="27" Canvas.Top="11"/>
+                <Ellipse x:Name="PinkyThimble" Width="12" Height="12" Fill="Black" Opacity="0.4" Canvas.Left="15" Canvas.Top="25"/>
+                <Ellipse x:Name="PalmThimble" Width="12" Height="12" Fill="Black" Opacity="0.4" Canvas.Left="38" Canvas.Top="65"/>
             </Canvas>
             <TextBlock x:Name="MacAddressText" Text="AA:BB:CC:DD:EE:00" FontSize="12" Width="100" TextAlignment="Center"></TextBlock>
             <StackPanel x:Name="BatteryPanel" Orientation="Horizontal" Spacing="5" HorizontalAlignment="Center" Height="15">

@@ -56,6 +56,17 @@ void WEART_C___API_Integration::HandStatus::Refresh()
 
 				MiddleThimble->Fill = ref new SolidColorBrush(ThimbleColor(MiddleConnected, MiddleOk));
 				MiddleThimble->Opacity = ThimbleOpacity(MiddleConnected, MiddleOk);
+				
+				AnnularThimble->Fill = ref new SolidColorBrush(ThimbleColor(AnnularConnected, AnnularOk));
+				AnnularThimble->Opacity = ThimbleOpacity(AnnularConnected, AnnularOk);
+					
+				PinkyThimble->Fill = ref new SolidColorBrush(ThimbleColor(PinkyConnected, PinkyOk));
+				PinkyThimble->Opacity = ThimbleOpacity(PinkyConnected, PinkyOk);
+
+				PalmThimble->Fill = ref new SolidColorBrush(ThimbleColor(PalmConnected, PalmOk));
+				PalmThimble->Opacity = ThimbleOpacity(PalmConnected, PalmOk);
+
+
 			}));
 }
 

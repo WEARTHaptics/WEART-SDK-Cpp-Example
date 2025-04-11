@@ -37,7 +37,7 @@ MainPage::MainPage()
 	// create haptic object to manage actuation on Righ hand and Index Thimble
 	hapticObject = new WeArtHapticObject(weArtClient);
 	hapticObject->handSideFlag = (int)HandSide::Right;
-	hapticObject->actuationPointFlag = (int)ActuationPoint::Index;
+	hapticObject->actuationPointFlag = (int)ActuationPoint::Index | (int)ActuationPoint::Palm;
 
 	//define feeling properties to create an effect
 	WeArtTemperature temperature = WeArtTemperature();
@@ -56,19 +56,27 @@ MainPage::MainPage()
 	indexRightThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Right, ActuationPoint::Index); weArtClient->AddThimbleTracking(indexRightThimbleTracking);
 	thumbRightThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Right, ActuationPoint::Thumb); weArtClient->AddThimbleTracking(thumbRightThimbleTracking);
 	middleRightThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Right, ActuationPoint::Middle); weArtClient->AddThimbleTracking(middleRightThimbleTracking);
+	annularRightThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Right, ActuationPoint::Annular); weArtClient->AddThimbleTracking(annularRightThimbleTracking);
+	pinkyRightThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Right, ActuationPoint::Pinky); weArtClient->AddThimbleTracking(pinkyRightThimbleTracking);
 
 	indexLeftThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Left, ActuationPoint::Index); weArtClient->AddThimbleTracking(indexLeftThimbleTracking);
 	thumbLeftThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Left, ActuationPoint::Thumb); weArtClient->AddThimbleTracking(thumbLeftThimbleTracking);
 	middleLeftThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Left, ActuationPoint::Middle); weArtClient->AddThimbleTracking(middleLeftThimbleTracking);
+	annularLeftThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Left, ActuationPoint::Annular); weArtClient->AddThimbleTracking(annularLeftThimbleTracking);
+	pinkyLeftThimbleTracking = new WeArtThimbleTrackingObject(HandSide::Left, ActuationPoint::Pinky); weArtClient->AddThimbleTracking(pinkyLeftThimbleTracking);
 
 	// Add all sensor data trackers
 	AddSensor("LEFT", "INDEX");
 	AddSensor("LEFT", "MIDDLE");
 	AddSensor("LEFT", "THUMB");
+	AddSensor("LEFT", "ANNULAR");
+	AddSensor("LEFT", "PINKY");
 	AddSensor("LEFT", "PALM");
 	AddSensor("RIGHT", "INDEX");
 	AddSensor("RIGHT", "MIDDLE");
 	AddSensor("RIGHT", "THUMB");
+	AddSensor("RIGHT", "ANNULAR");
+	AddSensor("RIGHT", "PINKY");
 	AddSensor("RIGHT", "PALM");
 
 	// Add Middleware status listener
@@ -113,11 +121,18 @@ void MainPage::RenderClosureAbduction() {
 	ValueThumbRightClosure->Text = thumbRightThimbleTracking->GetClosure().ToString();
 	ValueThumbRightAbduction->Text = thumbRightThimbleTracking->GetAbduction().ToString();
 	ValueMiddleRightClosure->Text = middleRightThimbleTracking->GetClosure().ToString();
+	ValueAnnularRightClosure->Text = annularRightThimbleTracking->GetClosure().ToString();
+	ValuePinkyRightClosure->Text = pinkyRightThimbleTracking->GetClosure().ToString();
+
+
 
 	ValueIndexLeftClosure->Text = indexLeftThimbleTracking->GetClosure().ToString();
 	ValueThumbLeftClosure->Text = thumbLeftThimbleTracking->GetClosure().ToString();
 	ValueThumbLeftAbduction->Text = thumbLeftThimbleTracking->GetAbduction().ToString();
 	ValueMiddleLeftClosure->Text = middleLeftThimbleTracking->GetClosure().ToString();
+	ValueAnnularLeftClosure->Text = annularLeftThimbleTracking->GetClosure().ToString();
+	ValuePinkyLeftClosure->Text = pinkyLeftThimbleTracking->GetClosure().ToString();
+
 }
 
 void MainPage::RenderTrackingRawSensorsData() {
@@ -242,7 +257,7 @@ void WEART_C___API_Integration::MainPage::RenderMiddlewareStatus()
 	MwStatusCodeDesc->Foreground = ref new SolidColorBrush(isStatusOk ? Windows::UI::Colors::Green : Windows::UI::Colors::Red);
 
 
-	int numConnected = mwStatus.devices.size();
+	int numConnected = mwStatus.connectedDevices.size();
 	ConnectedDevicesNum_Text->Text = numConnected.ToString();
 
 	// Update buttons based on status
@@ -265,8 +280,12 @@ void WEART_C___API_Integration::MainPage::RenderMiddlewareStatus()
 void WEART_C___API_Integration::MainPage::RenderDevicesStatus() {
 	bool leftConnected = false;
 	ConnectedDeviceStatus leftStatus;
+	bool leftG2Connected = false;
+	ConnectedG2DeviceStatus leftG2Status;
 	bool rightConnected = false;
 	ConnectedDeviceStatus rightStatus;
+	bool rightG2Connected = false;
+	ConnectedG2DeviceStatus rightG2Status;
 
 	// Get Devices status
 	std::vector<ConnectedDeviceStatus> devices = mwListener->lastStatus().devices;
@@ -281,8 +300,30 @@ void WEART_C___API_Integration::MainPage::RenderDevicesStatus() {
 		}
 	}
 
-	RenderHand(LeftHand, leftConnected, leftStatus);
-	RenderHand(RightHand, rightConnected, rightStatus);
+	// Get G2 Devices status
+	std::vector<ConnectedG2DeviceStatus> G2Devices = mwListener->lastStatus().G2Devices;
+	for (ConnectedG2DeviceStatus G2device : G2Devices) {
+		if (G2device.handSide == HandSide::Left) {
+			leftG2Connected = true;
+			leftG2Status = G2device;
+		}
+		if (G2device.handSide == HandSide::Right) {
+			rightG2Connected = true;
+			rightG2Status = G2device;
+		}
+	}
+
+	if (leftG2Connected || rightG2Connected)
+	{
+		RenderG2Hand(LeftHand, leftG2Connected, leftG2Status);
+		RenderG2Hand(RightHand, rightG2Connected, rightG2Status);
+	}
+	else
+	{
+		RenderHand(LeftHand, leftConnected, leftStatus);
+		RenderHand(RightHand, rightConnected, rightStatus);
+	}
+	
 }
 
 void WEART_C___API_Integration::MainPage::RenderHand(HandStatus^ hand, bool connected, ConnectedDeviceStatus status)
@@ -315,6 +356,50 @@ void WEART_C___API_Integration::MainPage::RenderHand(HandStatus^ hand, bool conn
 	}
 	hand->Refresh();
 }
+
+void WEART_C___API_Integration::MainPage::RenderG2Hand(HandStatus^ hand, bool connected, ConnectedG2DeviceStatus status)
+{
+	if (!connected) {
+		hand->Connected = false;
+		hand->Refresh();
+		return;
+	}
+
+	hand->Connected = true;
+	hand->MacAddress = stdToPlatformString(status.macAddress);
+	hand->BatteryLevel = stdToPlatformString(std::to_string(status.master.batteryLevel));
+	hand->Charging = status.master.charging;
+	for (NodeStatus node : status.nodes) {
+		switch (node.id) {
+		case ActuationPoint::Thumb:
+			hand->ThumbConnected = node.connected;
+			hand->ThumbOk = !node.imuFault;
+			break;
+		case ActuationPoint::Index:
+			hand->IndexConnected = node.connected;
+			hand->IndexOk = !node.imuFault;
+			break;
+		case ActuationPoint::Middle:
+			hand->MiddleConnected = node.connected;
+			hand->MiddleOk = !node.imuFault;
+			break;
+		case ActuationPoint::Annular:
+			hand->AnnularConnected = node.connected;
+			hand->AnnularOk = !node.imuFault;
+			break;
+		case ActuationPoint::Pinky:
+			hand->PinkyConnected = node.connected;
+			hand->PinkyOk = !node.imuFault;
+			break;
+		case ActuationPoint::Palm:
+			hand->PalmConnected = node.connected;
+			hand->PalmOk = !node.imuFault;
+			break;
+		}
+	}
+	hand->Refresh();
+}
+
 
 void MainPage::OnConnectionStatusChanged(bool connected) {
 	Dispatcher->RunAsync(CoreDispatcherPriority::High,

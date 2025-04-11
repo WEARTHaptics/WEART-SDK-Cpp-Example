@@ -31,6 +31,15 @@ namespace WEART_C___API_Integration
 		property bool MiddleConnected;
 		property bool MiddleOk;
 
+		property bool AnnularConnected;
+		property bool AnnularOk;
+
+		property bool PinkyConnected;
+		property bool PinkyOk;
+
+		property bool PalmConnected;
+		property bool PalmOk;
+
 		void Refresh();
 
 	private:

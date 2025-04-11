@@ -45,6 +45,8 @@ namespace WEART_C___API_Integration
 		void RenderDevicesStatus();
 
 		void RenderHand(HandStatus^ hand, bool connected, ConnectedDeviceStatus status);
+		void RenderG2Hand(HandStatus^ hand, bool connected, ConnectedG2DeviceStatus status);
+
 
 		void OnConnectionStatusChanged(bool connected);
 
@@ -59,10 +61,15 @@ namespace WEART_C___API_Integration
 		WeArtThimbleTrackingObject* indexRightThimbleTracking;
 		WeArtThimbleTrackingObject* thumbRightThimbleTracking;
 		WeArtThimbleTrackingObject* middleRightThimbleTracking;
+		WeArtThimbleTrackingObject* annularRightThimbleTracking;
+		WeArtThimbleTrackingObject* pinkyRightThimbleTracking;
+
 
 		WeArtThimbleTrackingObject* indexLeftThimbleTracking;
 		WeArtThimbleTrackingObject* thumbLeftThimbleTracking;
 		WeArtThimbleTrackingObject* middleLeftThimbleTracking;
+		WeArtThimbleTrackingObject* annularLeftThimbleTracking;
+		WeArtThimbleTrackingObject* pinkyLeftThimbleTracking;
 
 		// Raw Tracking Sensors
 		std::map < std::pair < std::string, std::string > , WeArtTrackingRawData* > trackingSensors;
