@@ -37,13 +37,25 @@
 
             <StackPanel Spacing="10" x:Name="MwStatusErrorBlock">
                 <TextBlock FontSize="16" FontWeight="Bold" VerticalAlignment="Center">
-                <Run>Status code: </Run>
-                <Run x:Name="MwStatusCode" Text="0"/>
+                    <Run>Status code: </Run>
+                    <Run x:Name="MwStatusCode" Text="0"/>
                 </TextBlock>
 
                 <TextBlock FontSize="16" VerticalAlignment="Center" TextWrapping="Wrap" Height="60">
                     <Run FontWeight="Bold">Description: </Run>
                     <Run x:Name="MwStatusCodeDesc" Text="OK"/>
+                </TextBlock>                
+            </StackPanel>
+
+            <StackPanel Spacing="10" x:Name="MwStatusWarningBlock">
+                <TextBlock FontSize="16" FontWeight="Bold" VerticalAlignment="Center">
+                    <Run>Warning code: </Run>
+                    <Run x:Name="MwWarningCode" Text="0"/>
+                </TextBlock>
+
+                <TextBlock FontSize="16" VerticalAlignment="Center" TextWrapping="Wrap" Height="60">
+                    <Run FontWeight="Bold">Description: </Run>
+                    <Run x:Name="MwWarningCodeDesc" Text="OK"/>
                 </TextBlock>
             </StackPanel>
 

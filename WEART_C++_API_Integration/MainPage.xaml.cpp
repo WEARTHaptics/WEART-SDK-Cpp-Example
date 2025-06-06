@@ -256,6 +256,11 @@ void WEART_C___API_Integration::MainPage::RenderMiddlewareStatus()
 	MwStatusCodeDesc->Text = isStatusOk ? "OK" : stdToPlatformString(mwStatus.errorDesc);
 	MwStatusCodeDesc->Foreground = ref new SolidColorBrush(isStatusOk ? Windows::UI::Colors::Green : Windows::UI::Colors::Red);
 
+	bool isWarningOk = mwStatus.warningCode == 0;
+	MwWarningCode->Text = mwStatus.warningCode.ToString();
+	MwWarningCode->Foreground = ref new SolidColorBrush(isWarningOk ? Windows::UI::Colors::Green : Windows::UI::Colors::Orange);
+	MwWarningCodeDesc->Text = isWarningOk ? "OK" : stdToPlatformString(mwStatus.warningDesc);
+	MwWarningCodeDesc->Foreground = ref new SolidColorBrush(isWarningOk ? Windows::UI::Colors::Green : Windows::UI::Colors::Orange);
 
 	int numConnected = mwStatus.connectedDevices.size();
 	ConnectedDevicesNum_Text->Text = numConnected.ToString();
