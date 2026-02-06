@@ -40,6 +40,8 @@ namespace WEART_C___API_Integration
 		property bool PalmConnected;
 		property bool PalmOk;
 
+		property Platform::String^ CalibrationDate;
+
 		void Refresh();
 
 	private:

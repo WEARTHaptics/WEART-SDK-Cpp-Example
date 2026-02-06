@@ -402,6 +402,15 @@ void WEART_C___API_Integration::MainPage::RenderG2Hand(HandStatus^ hand, bool co
 			break;
 		}
 	}
+
+	if (!status.sensorsCalibDate.empty()) {
+		std::string dateOnly = status.sensorsCalibDate.substr(0, 10);  // YYYY-MM-DD
+		hand->CalibrationDate = stdToPlatformString("Last calib: " + dateOnly);
+	}
+	else {
+		hand->CalibrationDate = "Not calibrated";
+	}
+
 	hand->Refresh();
 }
 

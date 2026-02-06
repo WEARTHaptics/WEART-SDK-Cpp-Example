@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="150"
+    d:DesignHeight="160"
     d:DesignWidth="100">
 
     <StackPanel Background="White">
@@ -29,8 +29,9 @@
                 <TextBlock FontSize="12" VerticalAlignment="Center">
                     <Run x:Name="BatteryLevelText" Text="80"/>
                     <Run>%</Run>
-                </TextBlock>
+                </TextBlock>                
             </StackPanel>
+            <TextBlock x:Name="CalibrationDateText" FontSize="7" Width="100" TextAlignment="Center" Foreground="Gray" Margin="0,2,0,0" Text=""/>
         </StackPanel>
     </StackPanel>
 </UserControl>

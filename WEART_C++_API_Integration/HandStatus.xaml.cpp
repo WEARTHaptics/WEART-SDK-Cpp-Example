@@ -66,6 +66,7 @@ void WEART_C___API_Integration::HandStatus::Refresh()
 				PalmThimble->Fill = ref new SolidColorBrush(ThimbleColor(PalmConnected, PalmOk));
 				PalmThimble->Opacity = ThimbleOpacity(PalmConnected, PalmOk);
 
+				CalibrationDateText->Text = CalibrationDate;
 
 			}));
 }

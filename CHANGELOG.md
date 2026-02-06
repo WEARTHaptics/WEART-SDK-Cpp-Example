@@ -2,6 +2,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [1.5.0]
+Added last sensors calibration date
+Updated LICENSE
+
 ## [1.4.0]
 Added warning code and warning description
 
