@@ -386,4 +386,4 @@ using an additional custom UserControl contained in the HandStatus.xaml/h/cpp fi
 
 ## Copyright
 
-Copyright &copy; 2024 Weart S.r.l.
+Copyright &copy; 2026 Weart S.r.l.
